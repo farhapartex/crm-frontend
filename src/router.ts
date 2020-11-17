@@ -1,22 +1,38 @@
 import Vue from 'vue';
 import VueRouter, { RouteConfig } from 'vue-router';
 import Home from './views/Home.vue';
+import SignInBase from "./views/SignInPage.vue";
+import Base from "./views/Base.vue";
 
 Vue.use(VueRouter);
 
 const routes = [
+
     {
-        path: '/',
-        name: 'Home',
-        component: Home,
-    },
-    {
-        path: '/about',
-        name: 'About',
+        path: '/sign-in',
+        name: 'SignIn',
         // route level code-splitting
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
-        component: () => import(/* webpackChunkName: "about" */ './views/About.vue'),
+        component: SignInBase,
+    },
+    {
+        path: '/',
+        name: 'base',
+        component: Base,
+        redirect: { name: 'dashboard' },
+        children: [
+            {
+                path: "dashboard",
+                name: "dashboard",
+                component: () => import("./components/Page.vue"),
+                props: { "pageHeader": "Dashboard", "componentType": "view" },
+                meta: {
+                    authRequired: true,
+                    access_level: 0
+                }
+            },
+        ]
     },
 ];
 
