@@ -3,6 +3,8 @@ import VueRouter, { RouteConfig } from 'vue-router';
 import Home from './views/Home.vue';
 import SignInBase from "./views/SignInPage.vue";
 import Base from "./views/Base.vue";
+import { SETTINGS_VIEW } from './routers/settingsRouter';
+import { CUSTOMER_LIST } from './routers/customerRoute';
 
 Vue.use(VueRouter);
 
@@ -32,6 +34,8 @@ const routes = [
                     access_level: 0
                 }
             },
+            CUSTOMER_LIST,
+            SETTINGS_VIEW
         ]
     },
 ];

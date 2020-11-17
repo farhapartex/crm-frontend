@@ -24,13 +24,13 @@
       <transition name="fade">
         <ul class="sub-navmenu" v-if="menuList['customer'] == true">
           <li>
-            <router-link :to="{ name: 'activeCustomerList' }">
-              <span>Active</span>
+            <router-link :to="{ name: 'customerList' }">
+              <span>Create Customer</span>
             </router-link>
           </li>
           <li>
-            <router-link :to="{ name: 'pendingCustomerList' }">
-              <span>Pending (10+)</span>
+            <router-link :to="{ name: 'customerList' }">
+              <span>Customer List</span>
             </router-link>
           </li>
         </ul>
@@ -92,115 +92,6 @@
         </ul>
       </transition>
     </li>
-    <li v-if="accessLevel == 'ADMIN'">
-      <p @click="menuList['supplement'] = !menuList['supplement']">
-        <span class="mr-2">
-          <i class="fas fa-box-open"></i>
-        </span>
-        <span>Supplement</span>
-        <span class="float-right" v-if="menuList['supplement'] == false">
-          <i class="fas fa-plus"></i>
-        </span>
-        <span class="float-right" v-if="menuList['supplement'] == true">
-          <i class="fas fa-minus"></i>
-        </span>
-      </p>
-      <transition name="fade">
-        <ul class="sub-navmenu" v-if="menuList['supplement'] == true">
-          <li>
-            <router-link :to="{ name: 'activeSupplementList' }">
-              <span>Active Supplement</span>
-            </router-link>
-          </li>
-          <li>
-            <router-link :to="{ name: 'inActiveSupplementList' }">
-              <span>Inactive Supplement</span>
-            </router-link>
-          </li>
-        </ul>
-      </transition>
-    </li>
-    <li v-if="accessLevel == 'ADMIN'">
-      <p @click="menuList['tourTemplate'] = !menuList['tourTemplate']">
-        <span class="mr-2">
-          <i class="far fa-clone"></i>
-        </span>
-        <span>Tour Template</span>
-        <span class="float-right" v-if="menuList['tourTemplate'] == false">
-          <i class="fas fa-plus"></i>
-        </span>
-        <span class="float-right" v-if="menuList['tourTemplate'] == true">
-          <i class="fas fa-minus"></i>
-        </span>
-      </p>
-      <transition name="fade">
-        <ul class="sub-navmenu" v-if="menuList['tourTemplate'] == true">
-          <li>
-            <router-link :to="{ name: 'activeTourTemplateList' }">
-              <span>Active Tour Template</span>
-            </router-link>
-          </li>
-          <li>
-            <router-link :to="{ name: 'inactiveTourTemplateList' }">
-              <span>Inactive Tour Template</span>
-            </router-link>
-          </li>
-        </ul>
-      </transition>
-    </li>
-    <li v-if="accessLevel == 'ADMIN'">
-      <p @click="menuList['tour'] = !menuList['tour']">
-        <span class="mr-2">
-          <i class="fas fa-warehouse"></i>
-        </span>
-        <span>Tour</span>
-        <span class="float-right" v-if="menuList['tour'] == false">
-          <i class="fas fa-plus"></i>
-        </span>
-        <span class="float-right" v-if="menuList['tour'] == true">
-          <i class="fas fa-minus"></i>
-        </span>
-      </p>
-      <transition name="fade">
-        <ul class="sub-navmenu" v-if="menuList['tour'] == true">
-          <li>
-            <router-link :to="{ name: 'activeTourList' }">
-              <span>Active Tour</span>
-            </router-link>
-          </li>
-          <li>
-            <router-link :to="{ name: 'inactiveTourList' }">
-              <span>Inactive Tour</span>
-            </router-link>
-          </li>
-        </ul>
-      </transition>
-    </li>
-    <li v-if="accessLevel == 'ADMIN'">
-      <router-link :to="{ name: 'bookingList' }">
-        <span class="mr-2">
-          <i class="fas fa-calendar-alt"></i>
-        </span>
-        <span>Booking</span>
-      </router-link>
-    </li>
-    <li v-if="accessLevel == 'ADMIN'">
-      <router-link :to="{ name: 'activeCouponList' }">
-        <span class="mr-2">
-          <i class="fas fa-tags"></i>
-        </span>
-        <span>Coupon</span>
-      </router-link>
-    </li>
-
-    <li v-if="accessLevel == 'ADMIN'">
-      <router-link :to="{ name: 'bookingTransactionList' }">
-        <span class="mr-2">
-          <i class="fas fa-funnel-dollar"></i>
-        </span>
-        <span>Transactions</span>
-      </router-link>
-    </li>
     <li>
       <router-link :to="{ name: 'settingsList' }">
         <span class="mr-2">
@@ -224,7 +115,7 @@ import { Getter, Action } from "vuex-class";
 export default class AdminMenu extends Vue {
   //   @Action(RETRIEVE_AUTH_FROM_STORE) retrieveAuth: any;
   //   @Getter(ACCESS_LEVEL) accessLevel: any;
-
+  accessLevel: string = "SUPERADMIN";
   menuList: any = {
     customer: false,
     packages: false,
@@ -249,4 +140,8 @@ export default class AdminMenu extends Vue {
 </script>
 
 <style>
+ul > li {
+  font-size: 14px;
+  color: #3f51b5 !important;
+}
 </style>

@@ -23,8 +23,6 @@ import AdminMenu from "./SidebarMenus/AdminMenu.vue";
 export default class Sidbear extends Vue {
   @Prop({ type: String }) currentNav!: string;
 
-  accessLevel: string = "SUPERADMIN";
-
   mounted() {}
 }
 </script>
@@ -39,22 +37,26 @@ export default class Sidbear extends Vue {
 
 .sidebar-menus > ul > li {
   padding: 7px 10px;
-  color: #404040;
+  color: #3f51b5 !important;
   cursor: pointer;
 }
 
 .sidebar-menus > ul > li > p,
 .sidebar-menus > ul > li > a {
-  color: #404040;
+  color: #4a4d70 !important;
   display: block;
   padding: 10px 12px !important;
   border-radius: 7px;
   text-decoration: none;
 }
 
+.sub-navmenu > li > a {
+  color: #4a4d70 !important;
+}
+
 .sidebar-menus > ul > li > p:hover,
 .sidebar-menus > ul > li > a:hover {
-  background: #ccc;
+  background: rgb(219, 219, 219);
 }
 
 .sub-navmenu {
@@ -67,6 +69,7 @@ export default class Sidbear extends Vue {
 .sub-navmenu > li {
   padding-top: 5px;
   padding-bottom: 5px;
+  padding-left: 10px;
 }
 
 .sub-navmenu > li > a {
