@@ -4,6 +4,10 @@
       :routeName="$route.name"
       v-if="$route.name == 'customerList'"
     ></CustomerTable>
+    <ServiceTable
+      :routeName="$route.name"
+      v-if="$route.name == 'serviceList'"
+    ></ServiceTable>
   </div>
 </template>
 
@@ -12,11 +16,13 @@
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { Getter, Action } from "vuex-class";
 import CustomerTable from "./tables/CustomerTable.vue";
+import ServiceTable from "./tables/ServiceTable.vue";
 
 @Component({
   name: "Table",
   components: {
     CustomerTable,
+    ServiceTable,
   },
 })
 export default class Table extends Vue {
@@ -58,5 +64,25 @@ export default class Table extends Vue {
   background-clip: padding-box;
   border: 1px solid #ced4da;
   border-radius: 0.25rem;
+}
+
+.table-crm {
+  background: #4a4d70;
+  color: #e6e6e6;
+  font-weight: normal;
+}
+
+.table-crm th {
+  color: #e6e6e6;
+  font-weight: normal;
+  font-size: 15px;
+}
+
+.crm-btn {
+  background: #4a4d70 !important;
+}
+
+table td {
+  font-size: 15px;
 }
 </style>

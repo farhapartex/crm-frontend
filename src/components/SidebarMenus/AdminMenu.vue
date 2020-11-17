@@ -85,7 +85,7 @@
             </router-link>
           </li>
           <li>
-            <router-link :to="{ name: 'servicePlaneList' }">
+            <router-link :to="{ name: 'serviceList' }">
               <span>Service Plan</span>
             </router-link>
           </li>

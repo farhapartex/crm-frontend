@@ -5,6 +5,7 @@ import SignInBase from "./views/SignInPage.vue";
 import Base from "./views/Base.vue";
 import { SETTINGS_VIEW } from './routers/settingsRouter';
 import { CUSTOMER_LIST } from './routers/customerRoute';
+import { SERVICE_LIST } from './routers/packageRoute';
 
 Vue.use(VueRouter);
 
@@ -34,6 +35,7 @@ const routes = [
                     access_level: 0
                 }
             },
+            SERVICE_LIST,
             CUSTOMER_LIST,
             SETTINGS_VIEW
         ]
