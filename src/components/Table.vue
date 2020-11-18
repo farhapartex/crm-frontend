@@ -78,10 +78,6 @@ export default class Table extends Vue {
   font-size: 15px;
 }
 
-.crm-btn {
-  background: #4a4d70 !important;
-}
-
 table td {
   font-size: 15px;
 }

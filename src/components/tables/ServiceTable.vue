@@ -13,8 +13,10 @@
           </div>
           <div class="col-2">
             <div class="">
-              <a href="" class="btn btn-secondary crm-btn w-100"
-                >Create Service</a
+              <router-link
+                :to="{ name: 'serviceCreate' }"
+                class="btn crm-btn w-100"
+                >Create Service</router-link
               >
             </div>
           </div>
