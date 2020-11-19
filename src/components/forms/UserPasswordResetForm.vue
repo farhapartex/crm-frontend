@@ -63,7 +63,7 @@
               <button class="btn btn-sm crm-btn">Save</button>
               <button class="btn btn-sm btn-warning ml-3">Reset</button>
               <router-link
-                :to="{ name: 'staffUserList' }"
+                :to="{ name: 'accountSecurity' }"
                 class="btn btn-sm btn-secondary ml-3"
                 >Back</router-link
               >

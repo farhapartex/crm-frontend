@@ -39,7 +39,7 @@
 
       <div class="col-4 settings-block">
         <div class="single-setting">
-          <router-link :to="{ name: 'staffUserPasswordReset' }" class="d-block">
+          <router-link :to="{ name: 'accountSecurity' }" class="d-block">
             <div class="setting-icon float-left">
               <span>
                 <i class="fas fa-key"></i>
@@ -47,9 +47,9 @@
             </div>
             <div class="setting-content float-right">
               <h6>
-                <b>Password Reset</b>
+                <b>Security and Login</b>
               </h6>
-              <p>Reset your account password</p>
+              <p>Control your account security</p>
             </div>
           </router-link>
         </div>

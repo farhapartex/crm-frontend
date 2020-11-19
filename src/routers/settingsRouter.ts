@@ -31,6 +31,19 @@ export const STAFF_USER_FORM: any = {
     }
 }
 
+
+export const ACCOUNT_SECURITY: any = {
+    path: "settings/security",
+    name: "accountSecurity",
+    component: () => import("../components/Page.vue"),
+    props: { "pageHeader": "Security and Login", "componentType": "view" },
+    meta: {
+        authRequired: true,
+        access_level: 0
+    }
+}
+
+
 export const PASSWORD_RESET_FORM: any = {
     path: "staff-user/password-reset",
     name: "staffUserPasswordReset",
