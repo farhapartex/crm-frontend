@@ -39,7 +39,7 @@
 
       <div class="col-4 settings-block">
         <div class="single-setting">
-          <a href="#" class="d-block">
+          <router-link :to="{ name: 'staffUserPasswordReset' }" class="d-block">
             <div class="setting-icon float-left">
               <span>
                 <i class="fas fa-key"></i>
@@ -51,7 +51,7 @@
               </h6>
               <p>Reset your account password</p>
             </div>
-          </a>
+          </router-link>
         </div>
       </div>
       <div class="col-4 settings-block">

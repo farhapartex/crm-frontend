@@ -2,6 +2,10 @@
   <div class="formBase w-100">
     <ServiceForm v-if="$route.name == 'serviceCreate'"></ServiceForm>
     <PackageForm v-if="$route.name == 'packageCreate'"></PackageForm>
+    <StaffUserForm v-if="$route.name == 'staffUserCreate'"></StaffUserForm>
+    <UserPasswordResetForm
+      v-if="$route.name == 'staffUserPasswordReset'"
+    ></UserPasswordResetForm>
   </div>
 </template>
 
@@ -11,12 +15,16 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 import { Getter, Action } from "vuex-class";
 import ServiceForm from "./forms/ServiceForm.vue";
 import PackageForm from "./forms/PackageForm.vue";
+import StaffUserForm from "./forms/StaffUserForm.vue";
+import UserPasswordResetForm from "./forms/UserPasswordResetForm.vue";
 
 @Component({
   name: "Form",
   components: {
     ServiceForm,
     PackageForm,
+    StaffUserForm,
+    UserPasswordResetForm,
   },
 })
 export default class Form extends Vue {
@@ -72,5 +80,9 @@ export default class Form extends Vue {
   padding: 4px 8px;
   text-align: center;
   transition: transform 0.2s ease;
+}
+
+.form-group label {
+  font-size: 14px;
 }
 </style>

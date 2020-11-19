@@ -3,7 +3,7 @@ import VueRouter, { RouteConfig } from 'vue-router';
 import Home from './views/Home.vue';
 import SignInBase from "./views/SignInPage.vue";
 import Base from "./views/Base.vue";
-import { SETTINGS_VIEW, STAFF_USER_LIST } from './routers/settingsRouter';
+import { SETTINGS_VIEW, STAFF_USER_LIST, STAFF_USER_FORM, PASSWORD_RESET_FORM } from './routers/settingsRouter';
 import { CUSTOMER_LIST } from './routers/customerRoute';
 import { SERVICE_CREATE, SERVICE_LIST, PACKAGE_LIST, PACKAGE_CREATE } from './routers/packageRoute';
 
@@ -41,7 +41,9 @@ const routes = [
             PACKAGE_CREATE,
             CUSTOMER_LIST,
             SETTINGS_VIEW,
-            STAFF_USER_LIST
+            STAFF_USER_LIST,
+            STAFF_USER_FORM,
+            PASSWORD_RESET_FORM
         ]
     },
 ];

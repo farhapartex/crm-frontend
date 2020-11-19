@@ -18,7 +18,7 @@
           <div class="col-2">
             <div class="">
               <router-link
-                :to="{ name: 'packageCreate' }"
+                :to="{ name: 'staffUserCreate' }"
                 class="btn btn-sm crm-btn w-100"
                 >Create User</router-link
               >
@@ -30,6 +30,7 @@
     <table class="table table-borderless">
       <thead>
         <tr class="table-crm">
+          <th scope="col">User ID</th>
           <th scope="col">Name</th>
           <th scope="col">Mobile</th>
           <th scope="col">Role</th>
@@ -41,6 +42,7 @@
       </thead>
       <tbody>
         <tr>
+          <td>as8das764a6s5das</td>
           <td>Einer Haladin</td>
           <td>01636990528</td>
           <td>Admin</td>
@@ -65,6 +67,7 @@
         </tr>
 
         <tr>
+          <td>as8das764a6s5das</td>
           <td>Farzana Yesmin</td>
           <td>01521321521</td>
           <td>Admin</td>
@@ -89,6 +92,7 @@
         </tr>
 
         <tr>
+          <td>as8das764a6s5das</td>
           <td>Mubasshir Ahmed</td>
           <td>01842559820</td>
           <td>Sales</td>
