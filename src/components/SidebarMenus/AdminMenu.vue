@@ -24,7 +24,7 @@
       <transition name="fade">
         <ul class="sub-navmenu" v-if="menuList['customer'] == true">
           <li>
-            <router-link :to="{ name: 'customerList' }">
+            <router-link :to="{ name: 'customerCreate' }">
               <span>Create Customer</span>
             </router-link>
           </li>

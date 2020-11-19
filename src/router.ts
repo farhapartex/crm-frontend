@@ -4,7 +4,7 @@ import Home from './views/Home.vue';
 import SignInBase from "./views/SignInPage.vue";
 import Base from "./views/Base.vue";
 import { SETTINGS_VIEW, STAFF_USER_LIST, STAFF_USER_FORM, PASSWORD_RESET_FORM, ACCOUNT_SECURITY } from './routers/settingsRouter';
-import { CUSTOMER_LIST } from './routers/customerRoute';
+import { CUSTOMER_LIST, CUSTOMER_FORM } from './routers/customerRoute';
 import { SERVICE_CREATE, SERVICE_LIST, PACKAGE_LIST, PACKAGE_CREATE } from './routers/packageRoute';
 
 Vue.use(VueRouter);
@@ -40,6 +40,7 @@ const routes = [
             PACKAGE_LIST,
             PACKAGE_CREATE,
             CUSTOMER_LIST,
+            CUSTOMER_FORM,
             SETTINGS_VIEW,
             STAFF_USER_LIST,
             STAFF_USER_FORM,

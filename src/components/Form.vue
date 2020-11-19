@@ -6,6 +6,7 @@
     <UserPasswordResetForm
       v-if="$route.name == 'staffUserPasswordReset'"
     ></UserPasswordResetForm>
+    <CustomerForm v-if="$route.name == 'customerCreate'"></CustomerForm>
   </div>
 </template>
 
@@ -17,6 +18,7 @@ import ServiceForm from "./forms/ServiceForm.vue";
 import PackageForm from "./forms/PackageForm.vue";
 import StaffUserForm from "./forms/StaffUserForm.vue";
 import UserPasswordResetForm from "./forms/UserPasswordResetForm.vue";
+import CustomerForm from "./forms/CustomerForm.vue";
 
 @Component({
   name: "Form",
@@ -25,6 +27,7 @@ import UserPasswordResetForm from "./forms/UserPasswordResetForm.vue";
     PackageForm,
     StaffUserForm,
     UserPasswordResetForm,
+    CustomerForm,
   },
 })
 export default class Form extends Vue {

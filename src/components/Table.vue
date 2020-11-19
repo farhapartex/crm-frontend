@@ -91,6 +91,6 @@ export default class Table extends Vue {
 }
 
 table td {
-  font-size: 15px;
+  font-size: 14px;
 }
 </style>
