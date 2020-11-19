@@ -8,6 +8,14 @@
       :routeName="$route.name"
       v-if="$route.name == 'serviceList'"
     ></ServiceTable>
+    <PackageTable
+      :routeName="$route.name"
+      v-if="$route.name == 'packageList'"
+    ></PackageTable>
+    <StaffUserTable
+      :routeName="$route.name"
+      v-if="$route.name == 'staffUserList'"
+    ></StaffUserTable>
   </div>
 </template>
 
@@ -17,12 +25,16 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 import { Getter, Action } from "vuex-class";
 import CustomerTable from "./tables/CustomerTable.vue";
 import ServiceTable from "./tables/ServiceTable.vue";
+import PackageTable from "./tables/PackageTable.vue";
+import StaffUserTable from "./tables/StaffUserTable.vue";
 
 @Component({
   name: "Table",
   components: {
     CustomerTable,
     ServiceTable,
+    PackageTable,
+    StaffUserTable,
   },
 })
 export default class Table extends Vue {

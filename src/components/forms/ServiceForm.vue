@@ -22,7 +22,7 @@
               <label for="service_name"
                 >Service Type <span class="text-secondary">*</span></label
               >
-              <select class="custom-select custom-select-sm">
+              <select class="custom-select custom-select-sm service-type">
                 <option selected>-- Select Service Type --</option>
                 <option value="1">Connections</option>
                 <option value="2">Inventory</option>
@@ -44,18 +44,20 @@
               />
             </div>
           </div>
-        </div>
 
-        <div class="row mt-4">
-          <div class="col-md-12 col-lg-12 col-sm-12">
-            <div class="form-group">
-              <button class="btn btn-sm crm-btn">Save</button>
-              <button class="btn btn-sm btn-warning ml-3">Reset</button>
-              <router-link
-                :to="{ name: 'serviceList' }"
-                class="btn btn-sm btn-secondary ml-3"
-                >Back</router-link
-              >
+          </div> 
+
+          <div class="row mt-4">
+            <div class="col-md-12 col-lg-12 col-sm-12">
+              <div class="form-group">
+                <button class="btn btn-sm crm-btn">Save</button>
+                <button class="btn btn-sm btn-warning ml-3">Reset</button>
+                <router-link
+                  :to="{ name: 'serviceList' }"
+                  class="btn btn-sm btn-secondary ml-3"
+                  >Back</router-link
+                >
+              </div>
             </div>
           </div>
         </div>

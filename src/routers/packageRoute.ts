@@ -30,3 +30,14 @@ export const PACKAGE_LIST: any = {
         access_level: "SUPERADMIN"
     }
 }
+
+export const PACKAGE_CREATE: any = {
+    path: "package/create",
+    name: "packageCreate",
+    component: () => import("../components/Page.vue"),
+    props: { "pageHeader": "New Package", "componentType": "form" },
+    meta: {
+        authRequired: true,
+        access_level: "SUPERADMIN"
+    }
+}

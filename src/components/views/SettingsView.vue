@@ -13,7 +13,7 @@
               <h6>
                 <b>System Profile</b>
               </h6>
-              <p>Department dummey text content</p>
+              <p>Add system information</p>
             </div>
           </a>
         </div>
@@ -21,43 +21,7 @@
 
       <div class="col-4 settings-block">
         <div class="single-setting">
-          <router-link :to="{ name: 'locationList' }" class="d-block">
-            <div class="setting-icon float-left">
-              <span>
-                <i class="fas fa-street-view"></i>
-              </span>
-            </div>
-            <div class="setting-content float-right">
-              <h6>
-                <b>Tour Location</b>
-              </h6>
-              <p>Locations for tour</p>
-            </div>
-          </router-link>
-        </div>
-      </div>
-
-      <div class="col-4 settings-block">
-        <div class="single-setting">
-          <router-link :to="{ name: 'supplementCategoryList' }" class="d-block">
-            <div class="setting-icon float-left">
-              <span>
-                <i class="fas fa-street-view"></i>
-              </span>
-            </div>
-            <div class="setting-content float-right">
-              <h6>
-                <b>Supplement Category</b>
-              </h6>
-              <p>Category & Sub-category for Supplement</p>
-            </div>
-          </router-link>
-        </div>
-      </div>
-
-      <div class="col-4 settings-block">
-        <div class="single-setting">
-          <a href="#" class="d-block">
+          <router-link :to="{ name: 'staffUserList' }" class="d-block">
             <div class="setting-icon float-left">
               <span>
                 <i class="fas fa-users-cog"></i>
@@ -67,9 +31,9 @@
               <h6>
                 <b>Staff Users</b>
               </h6>
-              <p>Department dummey text content</p>
+              <p>Add/Update system user</p>
             </div>
-          </a>
+          </router-link>
         </div>
       </div>
 
@@ -85,7 +49,7 @@
               <h6>
                 <b>Password Reset</b>
               </h6>
-              <p>Department dummey text content</p>
+              <p>Reset your account password</p>
             </div>
           </a>
         </div>
@@ -102,7 +66,7 @@
               <h6>
                 <b>Terms & Condition</b>
               </h6>
-              <p>Department dummey text content</p>
+              <p>System terms & condition</p>
             </div>
           </a>
         </div>

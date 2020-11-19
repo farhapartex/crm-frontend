@@ -18,9 +18,9 @@
           <div class="col-2">
             <div class="">
               <router-link
-                :to="{ name: 'serviceCreate' }"
+                :to="{ name: 'packageCreate' }"
                 class="btn btn-sm crm-btn w-100"
-                >Create Service</router-link
+                >Create Package</router-link
               >
             </div>
           </div>
@@ -30,25 +30,31 @@
     <table class="table table-borderless">
       <thead>
         <tr class="table-crm">
-          <th scope="col">Name</th>
-          <th scope="col">Limit/Hour</th>
-          <th scope="col">Created By</th>
-          <th scope="col">Created At</th>
+          <th scope="col">Name / Customer ID</th>
+          <th scope="col">Service Count</th>
+          <th scope="col">Validity</th>
+          <th scope="col">Price</th>
+          <th scope="col">Privacy</th>
           <th scope="col">Status</th>
           <th scope="col">Action</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td>Contacts</td>
-          <td>10</td>
-          <td>Md Nazmul Hasan (Admin)</td>
-          <td>4th Nov, 2020</td>
+          <td>Platinum</td>
+          <td>6</td>
+          <td>3 Months</td>
+          <td>3,500 BDT</td>
+          <td>Public</td>
           <td><span class="text-success">Active</span></td>
           <td>
             <p>
               <a href=""
                 ><span class="edit-icon"><i class="fas fa-edit"></i></span
+              ></a>
+              <span> | </span>
+              <a href=""
+                ><span class="text-secondary"><i class="fas fa-eye"></i></span
               ></a>
               <span> | </span>
               <a href=""
@@ -59,15 +65,44 @@
         </tr>
 
         <tr>
-          <td>Inventory</td>
-          <td>10000000</td>
-          <td>Md Nazmul Hasan (Admin)</td>
-          <td>4th Nov, 2020</td>
+          <td>Gold</td>
+          <td>18</td>
+          <td>3 Months</td>
+          <td>7,500 BDT</td>
+          <td>Public</td>
           <td><span class="text-success">Active</span></td>
           <td>
             <p>
               <a href=""
                 ><span class="edit-icon"><i class="fas fa-edit"></i></span
+              ></a>
+              <span> | </span>
+              <a href=""
+                ><span class="text-secondary"><i class="fas fa-eye"></i></span
+              ></a>
+              <span> | </span>
+              <a href=""
+                ><span class="text-danger"><i class="fas fa-trash"></i></span
+              ></a>
+            </p>
+          </td>
+        </tr>
+
+        <tr>
+          <td>7986s5a3sadASD@21sd</td>
+          <td>1</td>
+          <td>3 Months</td>
+          <td>10,500 BDT</td>
+          <td>Private</td>
+          <td><span class="text-success">Active</span></td>
+          <td>
+            <p>
+              <a href=""
+                ><span class="edit-icon"><i class="fas fa-edit"></i></span
+              ></a>
+              <span> | </span>
+              <a href=""
+                ><span class="text-secondary"><i class="fas fa-eye"></i></span
               ></a>
               <span> | </span>
               <a href=""
@@ -87,10 +122,10 @@ import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 import { Getter, Action } from "vuex-class";
 
 @Component({
-  name: "ServiceTable",
+  name: "PackageTable",
   components: {},
 })
-export default class ServiceTable extends Vue {
+export default class PackageTable extends Vue {
   @Prop({ type: String }) routeName!: string;
 
   packageList: any = [];

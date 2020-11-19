@@ -18,9 +18,9 @@
           <div class="col-2">
             <div class="">
               <router-link
-                :to="{ name: 'serviceCreate' }"
+                :to="{ name: 'packageCreate' }"
                 class="btn btn-sm crm-btn w-100"
-                >Create Service</router-link
+                >Create User</router-link
               >
             </div>
           </div>
@@ -31,24 +31,30 @@
       <thead>
         <tr class="table-crm">
           <th scope="col">Name</th>
-          <th scope="col">Limit/Hour</th>
-          <th scope="col">Created By</th>
-          <th scope="col">Created At</th>
+          <th scope="col">Mobile</th>
+          <th scope="col">Role</th>
+          <th scope="col">Join date</th>
+          <th scope="col">Last Login</th>
           <th scope="col">Status</th>
           <th scope="col">Action</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td>Contacts</td>
-          <td>10</td>
-          <td>Md Nazmul Hasan (Admin)</td>
-          <td>4th Nov, 2020</td>
+          <td>Einer Haladin</td>
+          <td>01636990528</td>
+          <td>Admin</td>
+          <td>22nd Oct, 2020</td>
+          <td>30th Nov'20 02:10:23</td>
           <td><span class="text-success">Active</span></td>
           <td>
             <p>
               <a href=""
                 ><span class="edit-icon"><i class="fas fa-edit"></i></span
+              ></a>
+              <span> | </span>
+              <a href=""
+                ><span class="text-secondary"><i class="fas fa-eye"></i></span
               ></a>
               <span> | </span>
               <a href=""
@@ -59,15 +65,44 @@
         </tr>
 
         <tr>
-          <td>Inventory</td>
-          <td>10000000</td>
-          <td>Md Nazmul Hasan (Admin)</td>
-          <td>4th Nov, 2020</td>
+          <td>Farzana Yesmin</td>
+          <td>01521321521</td>
+          <td>Admin</td>
+          <td>01st Jan, 2020</td>
+          <td>28th Nov'20 02:10:23</td>
           <td><span class="text-success">Active</span></td>
           <td>
             <p>
               <a href=""
                 ><span class="edit-icon"><i class="fas fa-edit"></i></span
+              ></a>
+              <span> | </span>
+              <a href=""
+                ><span class="text-secondary"><i class="fas fa-eye"></i></span
+              ></a>
+              <span> | </span>
+              <a href=""
+                ><span class="text-danger"><i class="fas fa-trash"></i></span
+              ></a>
+            </p>
+          </td>
+        </tr>
+
+        <tr>
+          <td>Mubasshir Ahmed</td>
+          <td>01842559820</td>
+          <td>Sales</td>
+          <td>01st Jan, 2020</td>
+          <td>28th Nov'20 02:10:23</td>
+          <td><span class="text-success">Active</span></td>
+          <td>
+            <p>
+              <a href=""
+                ><span class="edit-icon"><i class="fas fa-edit"></i></span
+              ></a>
+              <span> | </span>
+              <a href=""
+                ><span class="text-secondary"><i class="fas fa-eye"></i></span
               ></a>
               <span> | </span>
               <a href=""
@@ -87,10 +122,10 @@ import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 import { Getter, Action } from "vuex-class";
 
 @Component({
-  name: "ServiceTable",
+  name: "StaffUserTable",
   components: {},
 })
-export default class ServiceTable extends Vue {
+export default class StaffUserTable extends Vue {
   @Prop({ type: String }) routeName!: string;
 
   packageList: any = [];
