@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import VueRouter, { RouteConfig } from 'vue-router';
 import Home from './views/Home.vue';
-import SignInBase from "./views/SignInPage.vue";
+import AuthView from "./views/AuthView.vue";
 import Base from "./views/Base.vue";
 import { SETTINGS_VIEW, STAFF_USER_LIST, STAFF_USER_FORM, PASSWORD_RESET_FORM, ACCOUNT_SECURITY } from './routers/settingsRouter';
 import { CUSTOMER_LIST, CUSTOMER_FORM } from './routers/customerRoute';
@@ -12,12 +12,12 @@ Vue.use(VueRouter);
 const routes = [
 
     {
-        path: '/sign-in',
-        name: 'SignIn',
+        path: '/auth',
+        name: 'Auth',
         // route level code-splitting
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
-        component: SignInBase,
+        component: AuthView,
     },
     {
         path: '/',
