@@ -6,6 +6,7 @@ import Base from "./views/Base.vue";
 import { SETTINGS_VIEW, STAFF_USER_LIST, STAFF_USER_FORM, PASSWORD_RESET_FORM, ACCOUNT_SECURITY } from './routers/settingsRouter';
 import { CUSTOMER_LIST, CUSTOMER_FORM } from './routers/customerRoute';
 import { SERVICE_CREATE, SERVICE_LIST, PACKAGE_LIST, PACKAGE_CREATE } from './routers/packageRoute';
+import { PAYMENT_CREATE, TRANSACTION_LIST } from './routers/transactionRoute';
 
 Vue.use(VueRouter);
 
@@ -45,7 +46,9 @@ const routes = [
             STAFF_USER_LIST,
             STAFF_USER_FORM,
             ACCOUNT_SECURITY,
-            PASSWORD_RESET_FORM
+            PASSWORD_RESET_FORM,
+            TRANSACTION_LIST,
+            PAYMENT_CREATE
         ]
     },
 ];
