@@ -57,7 +57,7 @@
             </router-link>
           </li>
           <li>
-            <router-link :to="{ name: 'newPayment' }">
+            <router-link :to="{ name: 'paymentCreate' }">
               <span>New Payment</span>
             </router-link>
           </li>
