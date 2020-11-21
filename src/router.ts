@@ -7,6 +7,7 @@ import { SETTINGS_VIEW, STAFF_USER_LIST, STAFF_USER_FORM, PASSWORD_RESET_FORM, A
 import { CUSTOMER_LIST, CUSTOMER_FORM } from './routers/customerRoute';
 import { SERVICE_CREATE, SERVICE_LIST, PACKAGE_LIST, PACKAGE_CREATE } from './routers/packageRoute';
 import { PAYMENT_CREATE, TRANSACTION_LIST } from './routers/transactionRoute';
+import { EMAIL_VERIFY_FOR_PASSWORD_RESET } from './routers/authRouter';
 
 Vue.use(VueRouter);
 
@@ -19,6 +20,38 @@ const routes = [
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
         component: AuthView,
+        children: [
+            {
+                path: "sign-in",
+                name: "signin",
+                component: () => import("./views/SignInForm.vue"),
+                props: {},
+                meta: {
+                    authRequired: false,
+                    access_level: 0
+                }
+            },
+            {
+                path: "sign-up",
+                name: "signup",
+                component: () => import("./views/SignUpForm.vue"),
+                props: {},
+                meta: {
+                    authRequired: false,
+                    access_level: 0
+                }
+            },
+            {
+                path: "verify-email",
+                name: "emailVerifyPasswordReset",
+                component: () => import("./views/EmailVerifyPasswordReset.vue"),
+                props: {},
+                meta: {
+                    authRequired: false,
+                    access_level: 0
+                }
+            },
+        ]
     },
     {
         path: '/',

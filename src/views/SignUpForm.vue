@@ -78,7 +78,8 @@
             <div class="col-md-12 col-lg-12 col-sm-12">
               <div class="form-group overflow-hidden">
                 <p class="float-left">
-                  Have account already? <a href="#">Sign In</a>
+                  Have account already?
+                  <router-link :to="{ name: 'signin' }">Sign In</router-link>
                 </p>
               </div>
             </div>

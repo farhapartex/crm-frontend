@@ -32,7 +32,9 @@
         </div>
         <div class="form-group mb-5">
           <p class="float-left">
-            <a href="#">Forgot password?</a>
+            <router-link :to="{ name: 'emailVerifyPasswordReset' }"
+              >Forgot password?</router-link
+            >
           </p>
         </div>
         <div class="form-group mt-5">
@@ -41,7 +43,10 @@
 
         <div class="form-group overflow-hidden">
           <p class="float-left">
-            New user? <a href="#">Create free account</a>
+            New user?
+            <router-link :to="{ name: 'signup' }"
+              >Create Free Account</router-link
+            >
           </p>
         </div>
       </form>

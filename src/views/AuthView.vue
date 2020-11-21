@@ -6,8 +6,11 @@
           <div class="w-100 h-100"></div>
         </div>
         <div class="col-md-5 col-lg-5 pr-3 pl-3">
-          <SignInForm v-if="showLogin"></SignInForm>
-          <SignUpForm v-else></SignUpForm>
+          <SignInForm v-if="$route.name == 'signin'"></SignInForm>
+          <SignUpForm v-if="$route.name == 'signup'"></SignUpForm>
+          <EmailVerifyPasswordResetForm
+            v-if="$route.name == 'emailVerifyPasswordReset'"
+          ></EmailVerifyPasswordResetForm>
         </div>
       </div>
     </div>
@@ -20,10 +23,11 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 import { Getter, Action } from "vuex-class";
 import SignInForm from "./SignInForm.vue";
 import SignUpForm from "./SignUpForm.vue";
+import EmailVerifyPasswordResetForm from "./EmailVerifyPasswordReset.vue";
 
 @Component({
   name: "AuthView",
-  components: { SignInForm, SignUpForm },
+  components: { SignInForm, SignUpForm, EmailVerifyPasswordResetForm },
 })
 export default class AuthView extends Vue {
   showLogin: boolean = true;
