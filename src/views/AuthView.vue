@@ -26,7 +26,7 @@ import SignUpForm from "./SignUpForm.vue";
   components: { SignInForm, SignUpForm },
 })
 export default class AuthView extends Vue {
-  showLogin: boolean = false;
+  showLogin: boolean = true;
 
   userLogin() {}
   mounted() {}
