@@ -8,6 +8,9 @@ import { CUSTOMER_LIST, CUSTOMER_FORM } from './routers/customerRoute';
 import { SERVICE_CREATE, SERVICE_LIST, PACKAGE_LIST, PACKAGE_CREATE } from './routers/packageRoute';
 import { PAYMENT_CREATE, TRANSACTION_LIST } from './routers/transactionRoute';
 import { EMAIL_VERIFY_FOR_PASSWORD_RESET } from './routers/authRouter';
+import { CONTACT_FORM, CONTACT_LIST } from './routers/contactRoute';
+import { PRODUCT_LIST, PRODUCT_NEW_FORM } from './routers/productRoute';
+import { INVOICE_LIST, INVOICE_NEW_FORM } from './routers/invoiceRoute';
 
 Vue.use(VueRouter);
 
@@ -54,7 +57,7 @@ const routes = [
         ]
     },
     {
-        path: '/',
+        path: '/admin',
         name: 'base',
         component: Base,
         redirect: { name: 'dashboard' },
@@ -84,6 +87,19 @@ const routes = [
             PAYMENT_CREATE
         ]
     },
+    {
+        path: '/user',
+        name: 'customer',
+        component: Base,
+        children: [
+            CONTACT_LIST,
+            CONTACT_FORM,
+            PRODUCT_LIST,
+            PRODUCT_NEW_FORM,
+            INVOICE_LIST,
+            INVOICE_NEW_FORM
+        ]
+    }
 ];
 
 const router = new VueRouter({

@@ -92,6 +92,95 @@
         </ul>
       </transition>
     </li>
+    <li v-if="accessLevel == 'SUPERADMIN'">
+      <p @click="menuList['contact'] = !menuList['contact']">
+        <span class="mr-2">
+          <i class="fas fa-address-card"></i>
+        </span>
+        <span>Contact</span>
+        <span class="float-right" v-if="menuList['contact'] == false">
+          <i class="fas fa-plus"></i>
+        </span>
+        <span class="float-right" v-if="menuList['contact'] == true">
+          <i class="fas fa-minus"></i>
+        </span>
+      </p>
+      <transition name="fade">
+        <ul class="sub-navmenu" v-if="menuList['contact'] == true">
+          <li>
+            <router-link :to="{ name: 'contactList' }">
+              <span>Contact List</span>
+            </router-link>
+          </li>
+          <li>
+            <router-link :to="{ name: 'contactCreate' }">
+              <span>New Contact</span>
+            </router-link>
+          </li>
+        </ul>
+      </transition>
+    </li>
+    <li v-if="accessLevel == 'SUPERADMIN'">
+      <p @click="menuList['product'] = !menuList['product']">
+        <span class="mr-2">
+          <i class="fas fa-box"></i>
+        </span>
+        <span>Product</span>
+        <span class="float-right" v-if="menuList['product'] == false">
+          <i class="fas fa-plus"></i>
+        </span>
+        <span class="float-right" v-if="menuList['product'] == true">
+          <i class="fas fa-minus"></i>
+        </span>
+      </p>
+      <transition name="fade">
+        <ul class="sub-navmenu" v-if="menuList['product'] == true">
+          <li>
+            <router-link :to="{ name: 'productList' }">
+              <span>Prodict List</span>
+            </router-link>
+          </li>
+          <li>
+            <router-link :to="{ name: 'productCreate' }">
+              <span>New Product</span>
+            </router-link>
+          </li>
+        </ul>
+      </transition>
+    </li>
+    <li v-if="accessLevel == 'SUPERADMIN'">
+      <p @click="menuList['sellPoint'] = !menuList['sellPoint']">
+        <span class="mr-2">
+          <i class="fas fa-file-invoice"></i>
+        </span>
+        <span>Sell Point</span>
+        <span class="float-right" v-if="menuList['sellPoint'] == false">
+          <i class="fas fa-plus"></i>
+        </span>
+        <span class="float-right" v-if="menuList['sellPoint'] == true">
+          <i class="fas fa-minus"></i>
+        </span>
+      </p>
+      <transition name="fade">
+        <ul class="sub-navmenu" v-if="menuList['sellPoint'] == true">
+          <li>
+            <router-link :to="{ name: 'invoiceList' }">
+              <span>Invoice List</span>
+            </router-link>
+          </li>
+          <li>
+            <router-link :to="{ name: 'invoiceCreate' }">
+              <span>New Invoice</span>
+            </router-link>
+          </li>
+          <li>
+            <router-link :to="{ name: 'invoiceCreate' }">
+              <span>Coupon</span>
+            </router-link>
+          </li>
+        </ul>
+      </transition>
+    </li>
     <li>
       <router-link :to="{ name: 'settingsList' }">
         <span class="mr-2">
@@ -126,6 +215,9 @@ export default class AdminMenu extends Vue {
     booking: false,
     coupon: false,
     report: false,
+    contact: false,
+    product: false,
+    sellPoint: false,
   };
 
   //   getAuthInfo() {

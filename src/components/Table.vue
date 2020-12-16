@@ -20,6 +20,18 @@
       :routeName="$route.name"
       v-if="$route.name == 'transactionList'"
     ></TransactionTable>
+    <ContactTable
+      :routeName="$route.name"
+      v-if="$route.name == 'contactList'"
+    ></ContactTable>
+    <ProductTable
+      :routeName="$route.name"
+      v-if="$route.name == 'productList'"
+    ></ProductTable>
+    <InvoiceTable
+      :routeName="$route.name"
+      v-if="$route.name == 'invoiceList'"
+    ></InvoiceTable>
   </div>
 </template>
 
@@ -32,6 +44,9 @@ import ServiceTable from "./tables/ServiceTable.vue";
 import PackageTable from "./tables/PackageTable.vue";
 import StaffUserTable from "./tables/StaffUserTable.vue";
 import TransactionTable from "./tables/TransactionTable.vue";
+import ContactTable from "./tables/ContactTable.vue";
+import ProductTable from "./tables/ProductTable.vue";
+import InvoiceTable from "./tables/InvoiceTable.vue";
 
 @Component({
   name: "Table",
@@ -41,6 +56,9 @@ import TransactionTable from "./tables/TransactionTable.vue";
     PackageTable,
     StaffUserTable,
     TransactionTable,
+    ContactTable,
+    ProductTable,
+    InvoiceTable,
   },
 })
 export default class Table extends Vue {

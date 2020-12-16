@@ -8,6 +8,9 @@
     ></UserPasswordResetForm>
     <CustomerForm v-if="$route.name == 'customerCreate'"></CustomerForm>
     <PaymentForm v-if="$route.name == 'paymentCreate'"></PaymentForm>
+    <ContactForm v-if="$route.name == 'contactCreate'"></ContactForm>
+    <ProductForm v-if="$route.name == 'productCreate'"></ProductForm>
+    <InvoiceForm v-if="$route.name == 'invoiceCreate'"></InvoiceForm>
   </div>
 </template>
 
@@ -21,6 +24,9 @@ import StaffUserForm from "./forms/StaffUserForm.vue";
 import UserPasswordResetForm from "./forms/UserPasswordResetForm.vue";
 import CustomerForm from "./forms/CustomerForm.vue";
 import PaymentForm from "./forms/PaymentForm.vue";
+import ContactForm from "./forms/ContactForm.vue";
+import ProductForm from "./forms/ProductForm.vue";
+import InvoiceForm from "./forms/InvoiceForm.vue";
 
 @Component({
   name: "Form",
@@ -31,6 +37,9 @@ import PaymentForm from "./forms/PaymentForm.vue";
     UserPasswordResetForm,
     CustomerForm,
     PaymentForm,
+    ContactForm,
+    ProductForm,
+    InvoiceForm,
   },
 })
 export default class Form extends Vue {
