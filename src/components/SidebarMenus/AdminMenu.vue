@@ -174,7 +174,7 @@
             </router-link>
           </li>
           <li>
-            <router-link :to="{ name: 'invoiceCreate' }">
+            <router-link :to="{ name: 'couponList' }">
               <span>Coupon</span>
             </router-link>
           </li>

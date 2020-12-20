@@ -10,7 +10,7 @@ import { PAYMENT_CREATE, TRANSACTION_LIST } from './routers/transactionRoute';
 import { EMAIL_VERIFY_FOR_PASSWORD_RESET } from './routers/authRouter';
 import { CONTACT_FORM, CONTACT_LIST } from './routers/contactRoute';
 import { PRODUCT_LIST, PRODUCT_NEW_FORM } from './routers/productRoute';
-import { INVOICE_LIST, INVOICE_NEW_FORM } from './routers/invoiceRoute';
+import { COUPON_FORM, COUPON_LIST, INVOICE_LIST, INVOICE_NEW_FORM } from './routers/invoiceRoute';
 
 Vue.use(VueRouter);
 
@@ -30,8 +30,8 @@ const routes = [
                 component: () => import("./views/SignInForm.vue"),
                 props: {},
                 meta: {
-                    authRequired: false,
-                    access_level: 0
+                    access_level: 0,
+                    visitorRequired: true
                 }
             },
             {
@@ -40,7 +40,7 @@ const routes = [
                 component: () => import("./views/SignUpForm.vue"),
                 props: {},
                 meta: {
-                    authRequired: false,
+                    visitorRequired: true,
                     access_level: 0
                 }
             },
@@ -97,7 +97,9 @@ const routes = [
             PRODUCT_LIST,
             PRODUCT_NEW_FORM,
             INVOICE_LIST,
-            INVOICE_NEW_FORM
+            INVOICE_NEW_FORM,
+            COUPON_LIST,
+            COUPON_FORM
         ]
     }
 ];

@@ -11,6 +11,7 @@
     <ContactForm v-if="$route.name == 'contactCreate'"></ContactForm>
     <ProductForm v-if="$route.name == 'productCreate'"></ProductForm>
     <InvoiceForm v-if="$route.name == 'invoiceCreate'"></InvoiceForm>
+    <CouponForm v-if="$route.name == 'couponCreate'"></CouponForm>
   </div>
 </template>
 
@@ -27,6 +28,7 @@ import PaymentForm from "./forms/PaymentForm.vue";
 import ContactForm from "./forms/ContactForm.vue";
 import ProductForm from "./forms/ProductForm.vue";
 import InvoiceForm from "./forms/InvoiceForm.vue";
+import CouponForm from "./forms/CouponForm.vue";
 
 @Component({
   name: "Form",
@@ -40,6 +42,7 @@ import InvoiceForm from "./forms/InvoiceForm.vue";
     ContactForm,
     ProductForm,
     InvoiceForm,
+    CouponForm,
   },
 })
 export default class Form extends Vue {
