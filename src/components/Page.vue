@@ -15,6 +15,8 @@ import PageBoxHeader from "./PageBoxHeader.vue";
 import Table from "./Table.vue";
 import Form from "./Form.vue";
 import ViewPage from "./views/ViewPage.vue";
+import { CHECK_TOKEN_VALIDATION, LOGOUT } from "@/store/actions.names";
+import router from "@/router";
 
 @Component({
   name: "Page",
@@ -23,7 +25,29 @@ import ViewPage from "./views/ViewPage.vue";
 export default class Page extends Vue {
   @Prop({ type: String }) pageHeader!: string;
   @Prop({ type: String }) componentType!: string;
-  mounted() {}
+  @Action(CHECK_TOKEN_VALIDATION) checkTokenValidation: any;
+  @Action(LOGOUT) logout: any;
+
+  signout() {
+    this.logout()
+      .then((result: any) => {
+        this.$router.push("/auth/sign-in");
+      })
+      .catch((e: any) => {
+        console.log("Error");
+      });
+  }
+
+  mounted() {
+    const token = localStorage.getItem("access_token");
+    if (token) {
+      this.checkTokenValidation({ token: token }).then((response: any) => {
+        if (response.success && response.data.is_token_valid == false) {
+          this.signout();
+        }
+      });
+    }
+  }
 }
 </script>
 

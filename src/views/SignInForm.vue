@@ -90,7 +90,6 @@ export default class SignInForm extends Vue {
   };
 
   userLogin() {
-    console.log(this.credentials);
     this.login(this.credentials)
       .then((result: any) => {
         //this.$router.replace({ name: "dashboard" });

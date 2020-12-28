@@ -32,38 +32,19 @@
         <tr class="table-crm">
           <th scope="col">Name</th>
           <th scope="col">Limit/Hour</th>
-          <th scope="col">Created By</th>
           <th scope="col">Created At</th>
           <th scope="col">Status</th>
           <th scope="col">Action</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>Contacts</td>
-          <td>10</td>
-          <td>Md Nazmul Hasan (Admin)</td>
-          <td>4th Nov, 2020</td>
-          <td><span class="text-success">Active</span></td>
+        <tr v-for="(service, index) in serviceList" :key="index">
+          <td>{{ service.name }}</td>
+          <td>{{ service.volume }}</td>
+          <td>{{ service.created_at }}</td>
           <td>
-            <p>
-              <a href=""
-                ><span class="edit-icon"><i class="fas fa-edit"></i></span
-              ></a>
-              <span> | </span>
-              <a href=""
-                ><span class="text-danger"><i class="fas fa-trash"></i></span
-              ></a>
-            </p>
+            <span class="text-success">{{ service.is_active }}</span>
           </td>
-        </tr>
-
-        <tr>
-          <td>Inventory</td>
-          <td>10000000</td>
-          <td>Md Nazmul Hasan (Admin)</td>
-          <td>4th Nov, 2020</td>
-          <td><span class="text-success">Active</span></td>
           <td>
             <p>
               <a href=""
@@ -83,6 +64,7 @@
 
 <script lang="ts">
 // @ is an alias to /src
+import { FETCH_SERVICE_LIST } from "@/store/actions.names";
 import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 import { Getter, Action } from "vuex-class";
 
@@ -92,11 +74,24 @@ import { Getter, Action } from "vuex-class";
 })
 export default class ServiceTable extends Vue {
   @Prop({ type: String }) routeName!: string;
+  @Action(FETCH_SERVICE_LIST) fetchServiceList: any;
 
-  packageList: any = [];
+  serviceList: any = [];
   customerList: any = [];
 
-  mounted() {}
+  getServiceList() {
+    this.fetchServiceList()
+      .then((response: any) => {
+        this.serviceList = response.results;
+      })
+      .catch((e: any) => {
+        console.log(e);
+      });
+  }
+
+  mounted() {
+    this.getServiceList();
+  }
 }
 </script>
 

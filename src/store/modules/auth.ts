@@ -5,9 +5,9 @@ import axios from "axios";
 import {
     ACCESS_TOKEN, ACCESS_LEVEL, PERMISSIONS, GROUPS, LOGGED_IN_USER_DATA,
 } from "../getters.names";
-import { LOGIN_ENDPOINT, } from '../endpoints.names';
+import { LOGIN_ENDPOINT, TOKEN_VALIDATION_ENDPOINT, } from '../endpoints.names';
 import { SET_AUTH, SET_AUTH_ERROR, CLEAR_AUTH, GET_AUTH_FROM_STORE, GET_LOGGED_IN_USER_DATA, } from "@/store/mutations.names";
-import { LOGIN, LOGOUT, RETRIEVE_AUTH_FROM_STORE, RETRIEVE_LOGGED_IN_USER_DATA } from '../actions.names';
+import { CHECK_TOKEN_VALIDATION, LOGIN, LOGOUT, RETRIEVE_AUTH_FROM_STORE, RETRIEVE_LOGGED_IN_USER_DATA } from '../actions.names';
 import { generateAuthHeader } from '@/utils/auth';
 
 
@@ -57,6 +57,16 @@ const actions: ActionTree<AuthState, RootState> = {
     [RETRIEVE_LOGGED_IN_USER_DATA]({ state, commit, dispatch }) {
         commit(GET_LOGGED_IN_USER_DATA);
     },
+    async [CHECK_TOKEN_VALIDATION]({ rootState, commit }, payload: any): Promise<any> {
+        return new Promise((resolve, reject) => {
+            axios.post(TOKEN_VALIDATION_ENDPOINT, payload).then(({ data }) => {
+                resolve(data);
+            }).catch(e => {
+                reject(e);
+            });
+
+        });
+    },
 }
 
 const mutations: MutationTree<AuthState> = {
@@ -93,7 +103,6 @@ const mutations: MutationTree<AuthState> = {
     [GET_LOGGED_IN_USER_DATA](state) {
         const user = window.localStorage.getItem("user");
         //const accessLevel = window.localStorage.getItem("accessLevel");
-        console.log(user);
         if (user) {
             state.user = JSON.parse(user);
         }
