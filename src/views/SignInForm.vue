@@ -15,7 +15,12 @@
             </span>
             <span>Email</span>
           </label>
-          <input type="text" class="form-control form-control-sm" id="email" />
+          <input
+            type="text"
+            class="form-control form-control-sm"
+            id="email"
+            v-model="credentials.username"
+          />
         </div>
         <div class="form-group">
           <label for="password">
@@ -28,6 +33,7 @@
             type="password"
             class="form-control form-control-sm"
             id="password"
+            v-model="credentials.password"
           />
         </div>
         <div class="form-group mb-5">
@@ -65,13 +71,36 @@
 // @ is an alias to /src
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { Getter, Action } from "vuex-class";
+import { LOGIN } from "../store/actions.names";
+import { CLIENT_ID, CLIENT_SECRET } from "../utils/auth";
 
 @Component({
   name: "SignInForm",
   components: {},
 })
 export default class SignInForm extends Vue {
-  userLogin() {}
+  @Action(LOGIN) login: any;
+
+  credentials: any = {
+    username: "",
+    password: "",
+    grant_type: "password",
+    client_id: CLIENT_ID,
+    client_secret: CLIENT_SECRET,
+  };
+
+  userLogin() {
+    console.log(this.credentials);
+    this.login(this.credentials)
+      .then((result: any) => {
+        //this.$router.replace({ name: "dashboard" });
+        //location.reload();
+        this.$router.push({ name: "dashboard" });
+      })
+      .catch((e: any) => {
+        console.log("Error");
+      });
+  }
   mounted() {}
 }
 </script>

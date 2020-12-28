@@ -5,7 +5,7 @@
         <div class="row">
           <div class="col-md-3 col-lg-3 col-sm-12">
             <div class="form-group">
-              <label for="service_name"
+              <label for=""
                 >Service Name <span class="text-secondary">*</span></label
               >
               <input
@@ -16,25 +16,41 @@
               />
             </div>
           </div>
-
           <div class="col-md-3 col-lg-3 col-sm-12">
             <div class="form-group">
-              <label for="service_name"
+              <label for=""
                 >Service Type <span class="text-secondary">*</span></label
               >
               <select class="custom-select custom-select-sm service-type">
                 <option selected>-- Select Service Type --</option>
-                <option value="1">Connections</option>
-                <option value="2">Inventory</option>
-                <option value="3">HR</option>
+                <option
+                  :value="serviceType.id"
+                  v-for="(serviceType, index) in serviceTypeList"
+                  :key="index"
+                >
+                  {{ serviceType.name }}
+                </option>
               </select>
             </div>
           </div>
 
           <div class="col-md-3 col-lg-3 col-sm-12">
             <div class="form-group">
-              <label for="service_name"
-                >Hours/Limit <span class="text-secondary">*</span></label
+              <label for=""
+                >Volume Type <span class="text-secondary">*</span></label
+              >
+              <select class="custom-select custom-select-sm volumeType">
+                <option selected>-- Select Volume Type --</option>
+                <option value="HOUR">Hour</option>
+                <option value="LIMIT">Limit</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-md-3 col-lg-3 col-sm-12">
+            <div class="form-group">
+              <label for="volumeAmount"
+                >Volume Amount <span class="text-secondary">*</span></label
               >
               <input
                 type="text"
@@ -66,6 +82,7 @@
 
 <script lang="ts">
 // @ is an alias to /src
+import { FETCH_SERVICE_TYPE_LIST } from "@/store/actions.names";
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { Getter, Action } from "vuex-class";
 
@@ -74,7 +91,24 @@ import { Getter, Action } from "vuex-class";
   components: {},
 })
 export default class ServiceForm extends Vue {
-  mounted() {}
+  @Action(FETCH_SERVICE_TYPE_LIST) fetchServiceTypeList: any;
+
+  serviceTypeList: any = [];
+
+  getServiceTypeList() {
+    this.fetchServiceTypeList()
+      .then((response: any) => {
+        if (response.success) {
+          this.serviceTypeList = response.data;
+        }
+      })
+      .catch((e: any) => {
+        console.log(e);
+      });
+  }
+  mounted() {
+    this.getServiceTypeList();
+  }
 }
 </script>
 

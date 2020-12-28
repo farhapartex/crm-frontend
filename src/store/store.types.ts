@@ -14,9 +14,8 @@ export interface User {
     first_name: string;
     last_name: string;
     email: string;
-    full_name: string;
-    last_login: string;
-    date_joined: string;
+    mobile: string;
+    role: string;
 }
 
 export interface AuthState {
@@ -24,8 +23,9 @@ export interface AuthState {
     refresh_token: string | null;
     expires_in: string | null,
     accessLevel: any | null;
-    permissions: [],
+    permissions: [];
     error: boolean;
+    user: any;
 }
 
 export interface AuthCredential {
@@ -34,4 +34,8 @@ export interface AuthCredential {
     client_id: string,
     client_secret: string,
     grant_type: string
+}
+
+export interface CoreState {
+    error: boolean;
 }

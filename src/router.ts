@@ -72,6 +72,16 @@ const routes = [
                     access_level: 0
                 }
             },
+            {
+                path: "profile",
+                name: "adminProfile",
+                component: () => import("./components/Page.vue"),
+                props: { "pageHeader": "Admin Profile", "componentType": "view" },
+                meta: {
+                    authRequired: true,
+                    access_level: 0
+                }
+            },
             SERVICE_LIST,
             SERVICE_CREATE,
             PACKAGE_LIST,

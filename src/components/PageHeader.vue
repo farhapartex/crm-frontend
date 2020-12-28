@@ -34,13 +34,13 @@
           @click="showAuthNav = !showAuthNav"
         />
         <ul class="submenu" v-if="showAuthNav">
-          <li class>
-            <a href>
+          <li>
+            <router-link :to="{ name: 'adminProfile' }" class>
               <span>
                 <i class="far fa-user-circle"></i>
               </span>
               <span class="ml-3">hasan08sust@gmail.com</span>
-            </a>
+            </router-link>
           </li>
           <li class>
             <router-link :to="{ name: 'settingsList' }">
@@ -51,12 +51,12 @@
             </router-link>
           </li>
           <li>
-            <router-link :to="{ name: 'signout' }" class="text-danger">
+            <p class="text-danger" @click="signout">
               <span>
                 <i class="fas fa-sign-out-alt"></i>
               </span>
               <span class="ml-3">Signout</span>
-            </router-link>
+            </p>
           </li>
         </ul>
       </li>
@@ -68,16 +68,29 @@
 // @ is an alias to /src
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { Getter, Action } from "vuex-class";
+import { LOGOUT } from "../store/actions.names";
 
 @Component({
   name: "PageHeader",
   components: {},
 })
 export default class PageHeader extends Vue {
+  @Action(LOGOUT) logout: any;
   showAuthNav: boolean = false;
   setNavigationValue(item: string) {
     this.$emit("navigationValue", item);
   }
+
+  signout() {
+    this.logout()
+      .then((result: any) => {
+        this.$router.push("/auth/sign-in");
+      })
+      .catch((e: any) => {
+        console.log("Error");
+      });
+  }
+
   mounted() {}
 }
 </script>

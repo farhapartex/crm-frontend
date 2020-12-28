@@ -11,20 +11,27 @@ Vue.config.productionTip = false;
 
 Vue.use(VueNumber);
 
-store.dispatch(RETRIEVE_AUTH_FROM_STORE).then(() => { });
+//store.dispatch(RETRIEVE_AUTH_FROM_STORE).then(() => { });
+
+console.log("hasan ", localStorage.getItem("access_token"));
 
 router.beforeEach((to, from, next) => {
+  console.log("hasan ", localStorage.getItem("access_token"));
+
   if (to.meta.authRequired) {
-    if (store.getters[ACCESS_TOKEN] != null) {
-      next();
-    } else {
+    if (localStorage.getItem("access_token") == null) {
+      console.log("Auth required");
       next("/auth/sign-in");
+    } else {
+      next();
     }
   } else if (to.meta.visitorRequired) {
-    if (store.getters[ACCESS_TOKEN] != null) {
+    console.log("visitorRequired required");
+    if (localStorage.getItem("access_token") != null) {
       next("/admin");
     }
     else {
+      console.log("nothing required");
       next();
     }
   }
