@@ -27,10 +27,13 @@
         </div>
       </div>
     </div>
-    <table class="table table-borderless">
+
+    <table class="table table-borderless" v-if="serviceList.length > 0">
       <thead>
         <tr class="table-crm">
+          <th scope="col">UID</th>
           <th scope="col">Name</th>
+          <th scope="col">Service Type</th>
           <th scope="col">Limit/Hour</th>
           <th scope="col">Created At</th>
           <th scope="col">Status</th>
@@ -39,17 +42,21 @@
       </thead>
       <tbody>
         <tr v-for="(service, index) in serviceList" :key="index">
+          <td>{{ service.uid }}</td>
           <td>{{ service.name }}</td>
+          <td>{{ service.service_type_dict.name }}</td>
           <td>{{ service.volume }}</td>
-          <td>{{ service.created_at }}</td>
+          <td>{{ service.created_at | moment("DD-MM-YYYY HH:MM:SS") }}</td>
           <td>
-            <span class="text-success">{{ service.is_active }}</span>
+            <span class="text-success" v-if="service.is_active">Active</span>
+            <span class="text-danger" v-else>Deactive</span>
           </td>
           <td>
             <p>
-              <a href=""
+              <router-link
+                :to="{ name: 'serviceUpdate', params: { uid: service.uid } }"
                 ><span class="edit-icon"><i class="fas fa-edit"></i></span
-              ></a>
+              ></router-link>
               <span> | </span>
               <a href=""
                 ><span class="text-danger"><i class="fas fa-trash"></i></span
@@ -59,6 +66,9 @@
         </tr>
       </tbody>
     </table>
+    <div class="alert alert-secondary text-center" v-else role="alert">
+      Service list is empty!
+    </div>
   </div>
 </template>
 
@@ -80,7 +90,7 @@ export default class ServiceTable extends Vue {
   customerList: any = [];
 
   getServiceList() {
-    this.fetchServiceList()
+    this.fetchServiceList({})
       .then((response: any) => {
         this.serviceList = response.results;
       })

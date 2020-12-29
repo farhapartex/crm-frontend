@@ -1,6 +1,8 @@
 <template>
   <div class="formBase w-100">
-    <ServiceForm v-if="$route.name == 'serviceCreate'"></ServiceForm>
+    <ServiceForm
+      v-if="$route.name == 'serviceCreate' || $route.name == 'serviceUpdate'"
+    ></ServiceForm>
     <PackageForm v-if="$route.name == 'packageCreate'"></PackageForm>
     <StaffUserForm v-if="$route.name == 'staffUserCreate'"></StaffUserForm>
     <UserPasswordResetForm

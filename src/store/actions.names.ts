@@ -6,3 +6,4 @@ export const FETCH_SERVICE_TYPE_LIST: string = "fetchServiceTypeList";
 export const CHECK_TOKEN_VALIDATION: string = "checkTokenValidation";
 export const CREATE_SERVICE: string = "createService";
 export const FETCH_SERVICE_LIST: string = "fetchServiceList";
+export const FETCH_SERVICE_DETAIL: string = "fetchServiceDetail";

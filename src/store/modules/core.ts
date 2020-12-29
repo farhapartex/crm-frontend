@@ -6,8 +6,9 @@ import {
     ACCESS_TOKEN, ACCESS_LEVEL, PERMISSIONS, GROUPS, LOGGED_IN_USER_DATA,
 } from "../getters.names";
 import { SERVICE_ENDPOINT, SERVICE_TYPE_LIST_ENDPOINT, } from '../endpoints.names';
-import { CREATE_SERVICE, FETCH_SERVICE_LIST, FETCH_SERVICE_TYPE_LIST } from '../actions.names';
+import { CREATE_SERVICE, FETCH_SERVICE_DETAIL, FETCH_SERVICE_LIST, FETCH_SERVICE_TYPE_LIST } from '../actions.names';
 import { generateAuthHeader } from '@/utils/auth';
+import { buildQueryParams } from '@/utils/api';
 
 const DEFAULT_CORE_STATE: CoreState = {
     error: false
@@ -40,9 +41,10 @@ const actions: ActionTree<CoreState, RootState> = {
 
         });
     },
-    async [FETCH_SERVICE_LIST]({ rootState, commit }): Promise<any> {
+    async [FETCH_SERVICE_LIST]({ rootState, commit }, payload: any): Promise<any> {
         return new Promise((resolve, reject) => {
-            axios.get(SERVICE_ENDPOINT, generateAuthHeader(localStorage.getItem("access_token"))).then(({ data }) => {
+            const url = `${SERVICE_ENDPOINT}${buildQueryParams(payload)}`;
+            axios.get(url, generateAuthHeader(localStorage.getItem("access_token"))).then(({ data }) => {
                 resolve(data);
             }).catch(e => {
                 reject(e);

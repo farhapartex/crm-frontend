@@ -10,6 +10,7 @@ import { ACCESS_TOKEN } from './store/getters.names';
 Vue.config.productionTip = false;
 
 Vue.use(VueNumber);
+Vue.use(require('vue-moment'));
 
 //store.dispatch(RETRIEVE_AUTH_FROM_STORE).then(() => { });
 

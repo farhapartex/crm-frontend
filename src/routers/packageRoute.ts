@@ -20,6 +20,19 @@ export const SERVICE_CREATE: any = {
     }
 }
 
+
+export const SERVICE_UPDATE: any = {
+    path: "service/detail/:uid",
+    name: "serviceUpdate",
+    component: () => import("../components/Page.vue"),
+    props: { "pageHeader": "Service Detail", "componentType": "form" },
+    meta: {
+        authRequired: true,
+        access_level: "SUPERADMIN"
+    }
+}
+
+
 export const PACKAGE_LIST: any = {
     path: "package/list",
     name: "packageList",

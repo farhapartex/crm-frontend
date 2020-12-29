@@ -107,7 +107,11 @@
 
 <script lang="ts">
 // @ is an alias to /src
-import { CREATE_SERVICE, FETCH_SERVICE_TYPE_LIST } from "@/store/actions.names";
+import {
+  CREATE_SERVICE,
+  FETCH_SERVICE_LIST,
+  FETCH_SERVICE_TYPE_LIST,
+} from "@/store/actions.names";
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { Getter, Action } from "vuex-class";
 
@@ -118,6 +122,7 @@ import { Getter, Action } from "vuex-class";
 export default class ServiceForm extends Vue {
   @Action(FETCH_SERVICE_TYPE_LIST) fetchServiceTypeList: any;
   @Action(CREATE_SERVICE) createService: any;
+  @Action(FETCH_SERVICE_LIST) fetchServiceList: any;
 
   serviceTypeList: any = [];
   successMessage: any = null;
@@ -194,9 +199,26 @@ export default class ServiceForm extends Vue {
     }
   }
 
+  getServiceDetail(uid: any) {
+    this.fetchServiceList({ uid: uid })
+      .then((response: any) => {
+        let obj = response.results[0];
+        this.service = obj;
+      })
+      .catch((e: any) => {
+        this.clearForm();
+      });
+  }
+
   mounted() {
     this.successMessage = null;
     this.getServiceTypeList();
+
+    if (this.$route.name == "serviceUpdate") {
+      this.getServiceDetail(this.$route.params.uid);
+    }
+
+    console.log(this.$route.name);
 
     //this.formValidation(this.service);
   }
