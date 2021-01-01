@@ -88,10 +88,27 @@
         <div class="row mt-4">
           <div class="col-md-12 col-lg-12 col-sm-12">
             <div class="form-group">
-              <button class="btn btn-sm crm-btn" @click="createNewService">
+              <button
+                class="btn btn-sm crm-btn"
+                @click="createNewService"
+                v-if="pageType == 'new'"
+              >
                 Save
               </button>
-              <button class="btn btn-sm btn-warning ml-3">Reset</button>
+              <button
+                class="btn btn-sm crm-btn"
+                @click="updateObject"
+                v-else-if="pageType === 'update'"
+              >
+                Update
+              </button>
+              <button
+                class="btn btn-sm btn-warning ml-3"
+                v-if="pageType == 'new'"
+                @click="clearForm"
+              >
+                Reset
+              </button>
               <router-link
                 :to="{ name: 'serviceList' }"
                 class="btn btn-sm btn-secondary ml-3"
@@ -109,8 +126,9 @@
 // @ is an alias to /src
 import {
   CREATE_SERVICE,
-  FETCH_SERVICE_LIST,
+  FETCH_SERVICE_DETAIL,
   FETCH_SERVICE_TYPE_LIST,
+  UPDATE_SERVICE_DETAIL,
 } from "@/store/actions.names";
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { Getter, Action } from "vuex-class";
@@ -120,9 +138,11 @@ import { Getter, Action } from "vuex-class";
   components: {},
 })
 export default class ServiceForm extends Vue {
+  @Prop({ type: String }) pageType!: string;
   @Action(FETCH_SERVICE_TYPE_LIST) fetchServiceTypeList: any;
   @Action(CREATE_SERVICE) createService: any;
-  @Action(FETCH_SERVICE_LIST) fetchServiceList: any;
+  @Action(FETCH_SERVICE_DETAIL) fetchServiceDetail: any;
+  @Action(UPDATE_SERVICE_DETAIL) updateServiceDetail: any;
 
   serviceTypeList: any = [];
   successMessage: any = null;
@@ -200,13 +220,25 @@ export default class ServiceForm extends Vue {
   }
 
   getServiceDetail(uid: any) {
-    this.fetchServiceList({ uid: uid })
+    this.fetchServiceDetail(uid)
       .then((response: any) => {
-        let obj = response.results[0];
-        this.service = obj;
+        if (response.success) {
+          this.service = response.data;
+        }
       })
       .catch((e: any) => {
         this.clearForm();
+      });
+  }
+
+  updateObject() {
+    this.updateServiceDetail(this.service)
+      .then((response: any) => {
+        this.successMessage =
+          "Service '" + response.name + "' update successfully";
+      })
+      .catch((e: any) => {
+        console.log(e);
       });
   }
 

@@ -2,7 +2,7 @@
   <div class="page h-100 pl-4 pr-4 pt-3 pb-3">
     <PageBoxHeader :pageHeader="pageHeader"></PageBoxHeader>
     <Table v-if="componentType == 'table'"></Table>
-    <Form v-if="componentType == 'form'"></Form>
+    <Form v-if="componentType == 'form'" :pageType="pageType"></Form>
     <ViewPage v-if="componentType == 'view'"></ViewPage>
   </div>
 </template>
@@ -24,6 +24,7 @@ import router from "@/router";
 })
 export default class Page extends Vue {
   @Prop({ type: String }) pageHeader!: string;
+  @Prop({ type: String }) pageType!: string;
   @Prop({ type: String }) componentType!: string;
   @Action(CHECK_TOKEN_VALIDATION) checkTokenValidation: any;
   @Action(LOGOUT) logout: any;

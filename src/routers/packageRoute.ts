@@ -13,7 +13,7 @@ export const SERVICE_CREATE: any = {
     path: "service/create",
     name: "serviceCreate",
     component: () => import("../components/Page.vue"),
-    props: { "pageHeader": "New Service", "componentType": "form" },
+    props: { "pageHeader": "New Service", "pageType": "new", "componentType": "form" },
     meta: {
         authRequired: true,
         access_level: "SUPERADMIN"
@@ -25,7 +25,7 @@ export const SERVICE_UPDATE: any = {
     path: "service/detail/:uid",
     name: "serviceUpdate",
     component: () => import("../components/Page.vue"),
-    props: { "pageHeader": "Service Detail", "componentType": "form" },
+    props: { "pageHeader": "Service Detail", "pageType": "update", "componentType": "form" },
     meta: {
         authRequired: true,
         access_level: "SUPERADMIN"

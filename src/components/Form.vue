@@ -2,6 +2,7 @@
   <div class="formBase w-100">
     <ServiceForm
       v-if="$route.name == 'serviceCreate' || $route.name == 'serviceUpdate'"
+      :pageType="pageType"
     ></ServiceForm>
     <PackageForm v-if="$route.name == 'packageCreate'"></PackageForm>
     <StaffUserForm v-if="$route.name == 'staffUserCreate'"></StaffUserForm>
@@ -48,6 +49,7 @@ import CouponForm from "./forms/CouponForm.vue";
   },
 })
 export default class Form extends Vue {
+  @Prop({ type: String }) pageType!: string;
   mounted() {}
 }
 </script>
