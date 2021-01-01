@@ -1,5 +1,5 @@
 <template>
-  <div class="pageBoxHeader mb-4">
+  <div class="pageBoxHeader mb-2">
     <p class="page-header-title">{{ pageHeader }}</p>
   </div>
 </template>

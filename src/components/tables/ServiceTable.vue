@@ -5,23 +5,51 @@
     </div> -->
     <div class="w-100 search-box mb-4">
       <div class="container-fluid">
+        <div class="row mb-3">
+          <div class="col-2 offset-10">
+            <div class="">
+              <router-link
+                :to="{ name: 'serviceCreate' }"
+                class="btn btn-sm crm-btn w-100"
+                ><span class="mr-2"><i class="fas fa-plus"></i></span>
+                <span>Create Service</span></router-link
+              >
+            </div>
+          </div>
+        </div>
         <div class="row">
-          <div class="col-3 offset-7">
+          <div class="col-3 offset-4">
+            <div class="mr-3">
+              <select
+                class="custom-select custom-select-sm service-type"
+                @change="onChangeServiceType($event)"
+              >
+                <option disabled selected>-- Select Service Type --</option>
+                <option
+                  :value="serviceType.id"
+                  v-for="(serviceType, index) in serviceTypeList"
+                  :key="index"
+                >
+                  {{ serviceType.name }}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="col-3">
             <div class="mr-3">
               <input
                 type="text"
                 class="form-control form-control-sm"
-                placeholder="Search.."
+                placeholder="Search by uid, name, type etc.."
+                @change="onChangeGenericSearchText($event)"
               />
             </div>
           </div>
           <div class="col-2">
             <div class="">
-              <router-link
-                :to="{ name: 'serviceCreate' }"
-                class="btn btn-sm crm-btn w-100"
-                >Create Service</router-link
-              >
+              <button class="btn btn-sm crm-btn w-100" @click="searchData">
+                Search
+              </button>
             </div>
           </div>
         </div>
@@ -74,7 +102,10 @@
 
 <script lang="ts">
 // @ is an alias to /src
-import { FETCH_SERVICE_LIST } from "@/store/actions.names";
+import {
+  FETCH_SERVICE_LIST,
+  FETCH_SERVICE_TYPE_LIST,
+} from "@/store/actions.names";
 import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 import { Getter, Action } from "vuex-class";
 
@@ -85,12 +116,17 @@ import { Getter, Action } from "vuex-class";
 export default class ServiceTable extends Vue {
   @Prop({ type: String }) routeName!: string;
   @Action(FETCH_SERVICE_LIST) fetchServiceList: any;
+  @Action(FETCH_SERVICE_TYPE_LIST) fetchServiceTypeList: any;
 
   serviceList: any = [];
-  customerList: any = [];
+  serviceTypeList: any = [];
+  searchObject: any = {
+    generic_search: null,
+    service_type_id: null,
+  };
 
-  getServiceList() {
-    this.fetchServiceList({})
+  getServiceList(payload: any) {
+    this.fetchServiceList(payload)
       .then((response: any) => {
         this.serviceList = response.results;
       })
@@ -99,8 +135,33 @@ export default class ServiceTable extends Vue {
       });
   }
 
+  getServiceTypeList() {
+    this.fetchServiceTypeList()
+      .then((response: any) => {
+        if (response.success) {
+          this.serviceTypeList = response.data;
+        }
+      })
+      .catch((e: any) => {
+        console.log(e);
+      });
+  }
+
+  onChangeServiceType(event: any) {
+    this.searchObject.service_type_id = event.target.value;
+  }
+
+  onChangeGenericSearchText(event: any) {
+    this.searchObject.generic_search = event.target.value;
+  }
+
+  searchData() {
+    this.getServiceList(this.searchObject);
+  }
+
   mounted() {
-    this.getServiceList();
+    this.getServiceTypeList();
+    this.getServiceList({});
   }
 }
 </script>
