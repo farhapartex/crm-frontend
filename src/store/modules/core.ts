@@ -77,7 +77,7 @@ const actions: ActionTree<CoreState, RootState> = {
     async [DELETE_SERVICE_DETAIL]({ rootState, commit }, payload: any): Promise<any> {
         return new Promise((resolve, reject) => {
             const url = `${SERVICE_ENDPOINT}${payload['uid']}/`;
-            axios.put(url, payload, generateAuthHeader(localStorage.getItem("access_token"))).then(({ data }) => {
+            axios.delete(url, generateAuthHeader(localStorage.getItem("access_token"))).then(({ data }) => {
                 resolve(data);
             }).catch(e => {
                 reject(e);

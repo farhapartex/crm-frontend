@@ -6,6 +6,16 @@
       </div>
       <div class="container-fluid">
         <div class="row">
+          <div
+            class="col-md-12 col-lg-12 col-sm-12"
+            v-if="pageType == 'update'"
+          >
+            <div class="form-group">
+              <p>
+                <b>Service UID: {{ service.uid }}</b>
+              </p>
+            </div>
+          </div>
           <div class="col-md-3 col-lg-3 col-sm-12">
             <div class="form-group">
               <label for=""
@@ -109,52 +119,19 @@
               >
                 Reset
               </button>
-              <button
+              <!-- <button
                 class="btn btn-sm btn-danger ml-3"
                 v-if="pageType == 'update'"
                 data-toggle="modal"
                 data-target="#exampleModalCenter"
               >
                 Delete
-              </button>
+              </button> -->
               <router-link
                 :to="{ name: 'serviceList' }"
                 class="btn btn-sm btn-secondary ml-3"
                 >Back</router-link
               >
-            </div>
-          </div>
-        </div>
-
-        <div
-          class="modal fade"
-          id="exampleModalCenter"
-          tabindex="-1"
-          role="dialog"
-          aria-labelledby="exampleModalCenterTitle"
-          aria-hidden="true"
-        >
-          <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-              <div class="modal-body text-center">
-                <span class="text-danger">Are you sure want to delete?</span>
-              </div>
-              <div class="modal-footer">
-                <button
-                  type="button"
-                  class="btn btn-sm btn-secondary"
-                  data-dismiss="modal"
-                >
-                  Close
-                </button>
-                <button
-                  type="button"
-                  class="btn btn-sm btn-danger"
-                  @click="deleteObject"
-                >
-                  Delete
-                </button>
-              </div>
             </div>
           </div>
         </div>
@@ -219,6 +196,7 @@ export default class ServiceForm extends Vue {
 
   formValidation(obj: any) {
     // foundError = true means --> found validation error
+    delete obj["uid"];
     let foundError = false;
     Object.keys(obj).forEach((element: any) => {
       if (obj[element] == null || obj[element] == "") {
@@ -236,6 +214,7 @@ export default class ServiceForm extends Vue {
       service_type: null,
       volume_type: null,
       volume: null,
+      uid: null,
     };
   }
 
