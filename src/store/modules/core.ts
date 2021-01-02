@@ -6,7 +6,7 @@ import {
     ACCESS_TOKEN, ACCESS_LEVEL, PERMISSIONS, GROUPS, LOGGED_IN_USER_DATA,
 } from "../getters.names";
 import { SERVICE_ENDPOINT, SERVICE_TYPE_LIST_ENDPOINT, } from '../endpoints.names';
-import { CREATE_SERVICE, FETCH_SERVICE_DETAIL, FETCH_SERVICE_LIST, FETCH_SERVICE_TYPE_LIST, UPDATE_SERVICE_DETAIL } from '../actions.names';
+import { CREATE_SERVICE, DELETE_SERVICE_DETAIL, FETCH_SERVICE_DETAIL, FETCH_SERVICE_LIST, FETCH_SERVICE_TYPE_LIST, UPDATE_SERVICE_DETAIL } from '../actions.names';
 import { generateAuthHeader } from '@/utils/auth';
 import { buildQueryParams } from '@/utils/api';
 
@@ -64,6 +64,17 @@ const actions: ActionTree<CoreState, RootState> = {
         });
     },
     async [UPDATE_SERVICE_DETAIL]({ rootState, commit }, payload: any): Promise<any> {
+        return new Promise((resolve, reject) => {
+            const url = `${SERVICE_ENDPOINT}${payload['uid']}/`;
+            axios.put(url, payload, generateAuthHeader(localStorage.getItem("access_token"))).then(({ data }) => {
+                resolve(data);
+            }).catch(e => {
+                reject(e);
+            });
+
+        });
+    },
+    async [DELETE_SERVICE_DETAIL]({ rootState, commit }, payload: any): Promise<any> {
         return new Promise((resolve, reject) => {
             const url = `${SERVICE_ENDPOINT}${payload['uid']}/`;
             axios.put(url, payload, generateAuthHeader(localStorage.getItem("access_token"))).then(({ data }) => {

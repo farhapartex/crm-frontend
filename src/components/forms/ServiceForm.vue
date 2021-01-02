@@ -109,11 +109,52 @@
               >
                 Reset
               </button>
+              <button
+                class="btn btn-sm btn-danger ml-3"
+                v-if="pageType == 'update'"
+                data-toggle="modal"
+                data-target="#exampleModalCenter"
+              >
+                Delete
+              </button>
               <router-link
                 :to="{ name: 'serviceList' }"
                 class="btn btn-sm btn-secondary ml-3"
                 >Back</router-link
               >
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="modal fade"
+          id="exampleModalCenter"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="exampleModalCenterTitle"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-body text-center">
+                <span class="text-danger">Are you sure want to delete?</span>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-sm btn-secondary"
+                  data-dismiss="modal"
+                >
+                  Close
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-sm btn-danger"
+                  @click="deleteObject"
+                >
+                  Delete
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -126,6 +167,7 @@
 // @ is an alias to /src
 import {
   CREATE_SERVICE,
+  DELETE_SERVICE_DETAIL,
   FETCH_SERVICE_DETAIL,
   FETCH_SERVICE_TYPE_LIST,
   UPDATE_SERVICE_DETAIL,
@@ -143,6 +185,7 @@ export default class ServiceForm extends Vue {
   @Action(CREATE_SERVICE) createService: any;
   @Action(FETCH_SERVICE_DETAIL) fetchServiceDetail: any;
   @Action(UPDATE_SERVICE_DETAIL) updateServiceDetail: any;
+  @Action(DELETE_SERVICE_DETAIL) deleteServiceTypeList: any;
 
   serviceTypeList: any = [];
   successMessage: any = null;
@@ -152,6 +195,7 @@ export default class ServiceForm extends Vue {
     service_type: null,
     volume_type: null,
     volume: null,
+    uid: null,
   };
 
   serviceValidationObj: any = {
@@ -236,6 +280,17 @@ export default class ServiceForm extends Vue {
       .then((response: any) => {
         this.successMessage =
           "Service '" + response.name + "' update successfully";
+      })
+      .catch((e: any) => {
+        console.log(e);
+      });
+  }
+
+  deleteObject() {
+    //console.log(this.service);
+    this.deleteServiceTypeList(this.service)
+      .then((response: any) => {
+        this.$router.push({ name: "serviceList" });
       })
       .catch((e: any) => {
         console.log(e);
