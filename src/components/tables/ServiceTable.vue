@@ -141,7 +141,7 @@
 <script lang="ts">
 // @ is an alias to /src
 import {
-  DELETE_SERVICE_DETAIL,
+  SOFT_DELETE,
   FETCH_SERVICE_LIST,
   FETCH_SERVICE_TYPE_LIST,
 } from "@/store/actions.names";
@@ -156,7 +156,7 @@ export default class ServiceTable extends Vue {
   @Prop({ type: String }) routeName!: string;
   @Action(FETCH_SERVICE_LIST) fetchServiceList: any;
   @Action(FETCH_SERVICE_TYPE_LIST) fetchServiceTypeList: any;
-  @Action(DELETE_SERVICE_DETAIL) deleteServiceTypeList: any;
+  @Action(SOFT_DELETE) softDelete: any;
 
   serviceList: any = [];
   serviceTypeList: any = [];
@@ -190,7 +190,7 @@ export default class ServiceTable extends Vue {
 
   deleteObject() {
     console.log(this.singleObj);
-    this.deleteServiceTypeList(this.singleObj)
+    this.softDelete({ uid: this.singleObj.uid, context: "service" })
       .then((response: any) => {
         this.$router.go(0);
       })

@@ -119,14 +119,6 @@
               >
                 Reset
               </button>
-              <!-- <button
-                class="btn btn-sm btn-danger ml-3"
-                v-if="pageType == 'update'"
-                data-toggle="modal"
-                data-target="#exampleModalCenter"
-              >
-                Delete
-              </button> -->
               <router-link
                 :to="{ name: 'serviceList' }"
                 class="btn btn-sm btn-secondary ml-3"
@@ -144,7 +136,6 @@
 // @ is an alias to /src
 import {
   CREATE_SERVICE,
-  DELETE_SERVICE_DETAIL,
   FETCH_SERVICE_DETAIL,
   FETCH_SERVICE_TYPE_LIST,
   UPDATE_SERVICE_DETAIL,
@@ -162,7 +153,6 @@ export default class ServiceForm extends Vue {
   @Action(CREATE_SERVICE) createService: any;
   @Action(FETCH_SERVICE_DETAIL) fetchServiceDetail: any;
   @Action(UPDATE_SERVICE_DETAIL) updateServiceDetail: any;
-  @Action(DELETE_SERVICE_DETAIL) deleteServiceTypeList: any;
 
   serviceTypeList: any = [];
   successMessage: any = null;
@@ -259,17 +249,6 @@ export default class ServiceForm extends Vue {
       .then((response: any) => {
         this.successMessage =
           "Service '" + response.name + "' update successfully";
-      })
-      .catch((e: any) => {
-        console.log(e);
-      });
-  }
-
-  deleteObject() {
-    //console.log(this.service);
-    this.deleteServiceTypeList(this.service)
-      .then((response: any) => {
-        this.$router.push({ name: "serviceList" });
       })
       .catch((e: any) => {
         console.log(e);
