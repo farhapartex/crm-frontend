@@ -5,8 +5,8 @@ import axios from "axios";
 import {
     ACCESS_TOKEN, ACCESS_LEVEL, PERMISSIONS, GROUPS, LOGGED_IN_USER_DATA,
 } from "../getters.names";
-import { SERVICE_ENDPOINT, SERVICE_TYPE_LIST_ENDPOINT, SOFT_DELETE_ENDPOINT, } from '../endpoints.names';
-import { CREATE_SERVICE, SOFT_DELETE, FETCH_SERVICE_DETAIL, FETCH_SERVICE_LIST, FETCH_SERVICE_TYPE_LIST, UPDATE_SERVICE_DETAIL } from '../actions.names';
+import { PACKAGE_ENDPOINT, PACKAGE_VALIDITY_ENDPOINT, SERVICE_ENDPOINT, SERVICE_TYPE_LIST_ENDPOINT, SOFT_DELETE_ENDPOINT, } from '../endpoints.names';
+import { CREATE_SERVICE, SOFT_DELETE, FETCH_SERVICE_DETAIL, FETCH_SERVICE_LIST, FETCH_SERVICE_TYPE_LIST, UPDATE_SERVICE_DETAIL, FETCH_PACKAGE_VALIDITY, FETCH_PACKAGE_LIST } from '../actions.names';
 import { generateAuthHeader } from '@/utils/auth';
 import { buildQueryParams } from '@/utils/api';
 
@@ -77,6 +77,26 @@ const actions: ActionTree<CoreState, RootState> = {
     async [SOFT_DELETE]({ rootState, commit }, payload: any): Promise<any> {
         return new Promise((resolve, reject) => {
             axios.post(SOFT_DELETE_ENDPOINT, payload, generateAuthHeader(localStorage.getItem("access_token"))).then(({ data }) => {
+                resolve(data);
+            }).catch(e => {
+                reject(e);
+            });
+
+        });
+    },
+    async [FETCH_PACKAGE_VALIDITY]({ rootState, commit }): Promise<any> {
+        return new Promise((resolve, reject) => {
+            axios.get(PACKAGE_VALIDITY_ENDPOINT, generateAuthHeader(localStorage.getItem("access_token"))).then(({ data }) => {
+                resolve(data);
+            }).catch(e => {
+                reject(e);
+            });
+
+        });
+    },
+    async [FETCH_PACKAGE_LIST]({ rootState, commit }): Promise<any> {
+        return new Promise((resolve, reject) => {
+            axios.get(PACKAGE_ENDPOINT, generateAuthHeader(localStorage.getItem("access_token"))).then(({ data }) => {
                 resolve(data);
             }).catch(e => {
                 reject(e);

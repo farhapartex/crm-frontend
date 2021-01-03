@@ -38,9 +38,13 @@
               >
               <select class="custom-select custom-select-sm service-type">
                 <option selected>-- Select Service Type --</option>
-                <option value="1">3 Months</option>
-                <option value="2">6 Months</option>
-                <option value="3">HR</option>
+                <option
+                  value="1"
+                  v-for="(validity, index) in packagevalidityList"
+                  :key="index"
+                >
+                  {{ validity.amount }} {{ validity.validity_type }}
+                </option>
               </select>
             </div>
           </div>
@@ -63,6 +67,20 @@
           </div>
 
           <div class="col-md-4 col-lg-4 col-sm-12">
+            <div class="form-group">
+              <label for="service_name"
+                >Package Price <span class="text-secondary">*</span></label
+              >
+              <input
+                type="text"
+                class="form-control form-control-sm"
+                id="package_price"
+                placeholder="Price"
+              />
+            </div>
+          </div>
+
+          <div class="col-md-12 col-lg-12 col-sm-12">
             <div class="form-group">
               <div class="form-check">
                 <input
@@ -102,13 +120,17 @@
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { Getter, Action } from "vuex-class";
 import Multiselect from "vue-multiselect";
+import { FETCH_PACKAGE_VALIDITY } from "@/store/actions.names";
 
 @Component({
   name: "PackageForm",
   components: { Multiselect },
 })
 export default class PackageForm extends Vue {
+  @Action(FETCH_PACKAGE_VALIDITY) fetchPackageValidity: any;
   isPrivatePackage: boolean = false;
+
+  packagevalidityList: any = [];
 
   options: any = [
     { name: "Contacts", code: "vu" },
@@ -128,7 +150,21 @@ export default class PackageForm extends Vue {
     this.value.push(tag);
   }
 
-  mounted() {}
+  getPackageValidityList() {
+    this.fetchPackageValidity()
+      .then((response: any) => {
+        if (response.success) {
+          this.packagevalidityList = response.data;
+        }
+      })
+      .catch((e: any) => {
+        console.log(e);
+      });
+  }
+
+  mounted() {
+    this.getPackageValidityList();
+  }
 }
 </script>
 

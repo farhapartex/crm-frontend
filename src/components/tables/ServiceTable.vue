@@ -25,6 +25,7 @@
                 @change="onChangeServiceType($event)"
               >
                 <option disabled selected>-- Select Service Type --</option>
+                <option value="">All</option>
                 <option
                   :value="serviceType.id"
                   v-for="(serviceType, index) in serviceTypeList"

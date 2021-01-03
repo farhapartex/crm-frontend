@@ -30,7 +30,8 @@
     <table class="table table-borderless">
       <thead>
         <tr class="table-crm">
-          <th scope="col">Name / Customer ID</th>
+          <th scope="col">UID</th>
+          <th scope="col">Name</th>
           <th scope="col">Service Count</th>
           <th scope="col">Validity</th>
           <th scope="col">Price</th>
@@ -40,61 +41,23 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>Platinum</td>
-          <td>6</td>
-          <td>3 Months</td>
-          <td>3,500 BDT</td>
-          <td>Public</td>
-          <td><span class="text-success">Active</span></td>
+        <tr v-for="(packageObj, index) in packageList" :key="index">
+          <td>{{ packageObj.uid }}</td>
+          <td>{{ packageObj.name }}</td>
+          <td>{{ packageObj.total_service }}</td>
           <td>
-            <p>
-              <a href=""
-                ><span class="edit-icon"><i class="fas fa-edit"></i></span
-              ></a>
-              <span> | </span>
-              <a href=""
-                ><span class="text-secondary"><i class="fas fa-eye"></i></span
-              ></a>
-              <span> | </span>
-              <a href=""
-                ><span class="text-danger"><i class="fas fa-trash"></i></span
-              ></a>
-            </p>
+            {{ packageObj.validity_json.amount }}
+            {{ packageObj.validity_json.validity_type }}
           </td>
-        </tr>
-
-        <tr>
-          <td>Gold</td>
-          <td>18</td>
-          <td>3 Months</td>
-          <td>7,500 BDT</td>
-          <td>Public</td>
-          <td><span class="text-success">Active</span></td>
+          <td>{{ packageObj.price }} BDT</td>
           <td>
-            <p>
-              <a href=""
-                ><span class="edit-icon"><i class="fas fa-edit"></i></span
-              ></a>
-              <span> | </span>
-              <a href=""
-                ><span class="text-secondary"><i class="fas fa-eye"></i></span
-              ></a>
-              <span> | </span>
-              <a href=""
-                ><span class="text-danger"><i class="fas fa-trash"></i></span
-              ></a>
-            </p>
+            <span v-if="packageObj.is_private">Private</span
+            ><span v-else>Public</span>
           </td>
-        </tr>
-
-        <tr>
-          <td>7986s5a3sadASD@21sd</td>
-          <td>1</td>
-          <td>3 Months</td>
-          <td>10,500 BDT</td>
-          <td>Private</td>
-          <td><span class="text-success">Active</span></td>
+          <td>
+            <span class="text-success" v-if="packageObj.is_active">Active</span>
+            <span class="text-danger" v-else>Deactive</span>
+          </td>
           <td>
             <p>
               <a href=""
@@ -118,6 +81,7 @@
 
 <script lang="ts">
 // @ is an alias to /src
+import { FETCH_PACKAGE_LIST } from "@/store/actions.names";
 import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 import { Getter, Action } from "vuex-class";
 
@@ -127,11 +91,23 @@ import { Getter, Action } from "vuex-class";
 })
 export default class PackageTable extends Vue {
   @Prop({ type: String }) routeName!: string;
+  @Action(FETCH_PACKAGE_LIST) fetchPackageList: any;
 
   packageList: any = [];
-  customerList: any = [];
 
-  mounted() {}
+  getPackageList() {
+    this.fetchPackageList()
+      .then((response: any) => {
+        this.packageList = response.results;
+      })
+      .catch((e: any) => {
+        console.log(e);
+      });
+  }
+
+  mounted() {
+    this.getPackageList();
+  }
 }
 </script>
 
