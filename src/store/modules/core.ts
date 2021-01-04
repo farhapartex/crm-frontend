@@ -94,9 +94,10 @@ const actions: ActionTree<CoreState, RootState> = {
 
         });
     },
-    async [FETCH_PACKAGE_LIST]({ rootState, commit }): Promise<any> {
+    async [FETCH_PACKAGE_LIST]({ rootState, commit }, payload: any): Promise<any> {
         return new Promise((resolve, reject) => {
-            axios.get(PACKAGE_ENDPOINT, generateAuthHeader(localStorage.getItem("access_token"))).then(({ data }) => {
+            const url = `${PACKAGE_ENDPOINT}${buildQueryParams(payload)}`;
+            axios.get(url, generateAuthHeader(localStorage.getItem("access_token"))).then(({ data }) => {
                 resolve(data);
             }).catch(e => {
                 reject(e);

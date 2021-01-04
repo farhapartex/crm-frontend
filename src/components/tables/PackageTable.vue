@@ -5,23 +5,34 @@
     </div> -->
     <div class="w-100 search-box mb-4">
       <div class="container-fluid">
+        <div class="row mb-3">
+          <div class="col-2 offset-10">
+            <div class="">
+              <router-link
+                :to="{ name: 'packageCreate' }"
+                class="btn btn-sm crm-btn w-100"
+                ><span class="mr-2"><i class="fas fa-plus"></i></span
+                ><span>Create Package</span></router-link
+              >
+            </div>
+          </div>
+        </div>
         <div class="row">
           <div class="col-3 offset-7">
             <div class="mr-3">
               <input
                 type="text"
                 class="form-control form-control-sm"
-                placeholder="Search.."
+                placeholder="Search by uid, name.."
+                @change="onChangeGenericSearchText($event)"
               />
             </div>
           </div>
           <div class="col-2">
             <div class="">
-              <router-link
-                :to="{ name: 'packageCreate' }"
-                class="btn btn-sm crm-btn w-100"
-                >Create Package</router-link
-              >
+              <button class="btn btn-sm crm-btn w-100" @click="searchData">
+                Search
+              </button>
             </div>
           </div>
         </div>
@@ -65,10 +76,6 @@
               ></a>
               <span> | </span>
               <a href=""
-                ><span class="text-secondary"><i class="fas fa-eye"></i></span
-              ></a>
-              <span> | </span>
-              <a href=""
                 ><span class="text-danger"><i class="fas fa-trash"></i></span
               ></a>
             </p>
@@ -94,9 +101,13 @@ export default class PackageTable extends Vue {
   @Action(FETCH_PACKAGE_LIST) fetchPackageList: any;
 
   packageList: any = [];
+  searchObject: any = {
+    generic_search: null,
+    service_type_id: null,
+  };
 
-  getPackageList() {
-    this.fetchPackageList()
+  getPackageList(payload: any) {
+    this.fetchPackageList(payload)
       .then((response: any) => {
         this.packageList = response.results;
       })
@@ -105,8 +116,16 @@ export default class PackageTable extends Vue {
       });
   }
 
+  onChangeGenericSearchText(event: any) {
+    this.searchObject.generic_search = event.target.value;
+  }
+
+  searchData() {
+    this.getPackageList(this.searchObject);
+  }
+
   mounted() {
-    this.getPackageList();
+    this.getPackageList({});
   }
 }
 </script>
