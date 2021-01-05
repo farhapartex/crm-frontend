@@ -8,3 +8,6 @@ export const CREATE_SERVICE: string = "createService";
 export const FETCH_SERVICE_LIST: string = "fetchServiceList";
 export const FETCH_SERVICE_DETAIL: string = "fetchServiceDetail";
 export const UPDATE_SERVICE_DETAIL: string = "updateServiceDetail";
+export const SOFT_DELETE: string = "softDelete";
+export const FETCH_PACKAGE_VALIDITY: string = "fetchPackageValidity";
+export const FETCH_PACKAGE_LIST: string = "fetchPackageList";

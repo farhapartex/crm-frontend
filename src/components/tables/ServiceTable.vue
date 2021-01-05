@@ -25,6 +25,7 @@
                 @change="onChangeServiceType($event)"
               >
                 <option disabled selected>-- Select Service Type --</option>
+                <option value="">All</option>
                 <option
                   :value="serviceType.id"
                   v-for="(serviceType, index) in serviceTypeList"
@@ -86,7 +87,11 @@
                 ><span class="edit-icon"><i class="fas fa-edit"></i></span
               ></router-link>
               <span> | </span>
-              <a href=""
+              <a
+                href=""
+                @click="singleObj = service"
+                data-toggle="modal"
+                data-target="#exampleModalCenter"
                 ><span class="text-danger"><i class="fas fa-trash"></i></span
               ></a>
             </p>
@@ -94,8 +99,42 @@
         </tr>
       </tbody>
     </table>
+
     <div class="alert alert-secondary text-center" v-else role="alert">
       Service list is empty!
+    </div>
+
+    <div
+      class="modal fade"
+      id="exampleModalCenter"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalCenterTitle"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-body text-center">
+            <span class="text-danger">Are you sure want to delete?</span>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-sm btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+            <button
+              type="button"
+              class="btn btn-sm btn-danger"
+              @click="deleteObject"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -103,6 +142,7 @@
 <script lang="ts">
 // @ is an alias to /src
 import {
+  SOFT_DELETE,
   FETCH_SERVICE_LIST,
   FETCH_SERVICE_TYPE_LIST,
 } from "@/store/actions.names";
@@ -117,6 +157,7 @@ export default class ServiceTable extends Vue {
   @Prop({ type: String }) routeName!: string;
   @Action(FETCH_SERVICE_LIST) fetchServiceList: any;
   @Action(FETCH_SERVICE_TYPE_LIST) fetchServiceTypeList: any;
+  @Action(SOFT_DELETE) softDelete: any;
 
   serviceList: any = [];
   serviceTypeList: any = [];
@@ -124,6 +165,7 @@ export default class ServiceTable extends Vue {
     generic_search: null,
     service_type_id: null,
   };
+  singleObj: any = null;
 
   getServiceList(payload: any) {
     this.fetchServiceList(payload)
@@ -141,6 +183,17 @@ export default class ServiceTable extends Vue {
         if (response.success) {
           this.serviceTypeList = response.data;
         }
+      })
+      .catch((e: any) => {
+        console.log(e);
+      });
+  }
+
+  deleteObject() {
+    console.log(this.singleObj);
+    this.softDelete({ uid: this.singleObj.uid, context: "service" })
+      .then((response: any) => {
+        this.$router.go(0);
       })
       .catch((e: any) => {
         console.log(e);

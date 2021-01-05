@@ -6,6 +6,16 @@
       </div>
       <div class="container-fluid">
         <div class="row">
+          <div
+            class="col-md-12 col-lg-12 col-sm-12"
+            v-if="pageType == 'update'"
+          >
+            <div class="form-group">
+              <p>
+                <b>Service UID: {{ service.uid }}</b>
+              </p>
+            </div>
+          </div>
           <div class="col-md-3 col-lg-3 col-sm-12">
             <div class="form-group">
               <label for=""
@@ -152,6 +162,7 @@ export default class ServiceForm extends Vue {
     service_type: null,
     volume_type: null,
     volume: null,
+    uid: null,
   };
 
   serviceValidationObj: any = {
@@ -175,6 +186,7 @@ export default class ServiceForm extends Vue {
 
   formValidation(obj: any) {
     // foundError = true means --> found validation error
+    delete obj["uid"];
     let foundError = false;
     Object.keys(obj).forEach((element: any) => {
       if (obj[element] == null || obj[element] == "") {
@@ -192,6 +204,7 @@ export default class ServiceForm extends Vue {
       service_type: null,
       volume_type: null,
       volume: null,
+      uid: null,
     };
   }
 
