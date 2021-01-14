@@ -54,3 +54,14 @@ export const PACKAGE_CREATE: any = {
         access_level: "SUPERADMIN"
     }
 }
+
+export const PACKAGE_UPDATE: any = {
+    path: "package/detail/:uid",
+    name: "packageUpdate",
+    component: () => import("../components/Page.vue"),
+    props: { "pageHeader": "Package Detail", "pageType": "update", "componentType": "form" },
+    meta: {
+        authRequired: true,
+        access_level: "SUPERADMIN"
+    }
+}
