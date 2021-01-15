@@ -13,3 +13,4 @@ export const FETCH_PACKAGE_VALIDITY: string = "fetchPackageValidity";
 export const FETCH_PACKAGE_LIST: string = "fetchPackageList";
 export const CREATE_PACKAGE: string = "createPackage";
 export const UPDATE_PACKAGE: string = "updatePackage";
+export const STATUS_CHANGE: string = "statusChange";

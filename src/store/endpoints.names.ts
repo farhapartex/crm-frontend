@@ -7,3 +7,4 @@ export const SERVICE_ENDPOINT = `${API_URL}/services/`;
 export const SOFT_DELETE_ENDPOINT = `${API_URL}/generic-soft-delete/`;
 export const PACKAGE_VALIDITY_ENDPOINT = `${API_URL}/package-validity-list/`;
 export const PACKAGE_ENDPOINT: string = `${API_URL}/packages/`;
+export const STATUS_CHANGE_ENDPOINT: string = `${API_URL}/generic-status-change/`;
