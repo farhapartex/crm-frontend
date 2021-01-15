@@ -43,6 +43,7 @@
         <tr class="table-crm">
           <th scope="col">UID</th>
           <th scope="col">Name</th>
+          <th scope="col">Used</th>
           <th scope="col">Service Count</th>
           <th scope="col">Validity</th>
           <th scope="col">Price</th>
@@ -53,8 +54,9 @@
       </thead>
       <tbody>
         <tr v-for="(packageObj, index) in packageList" :key="index">
-          <td>{{ packageObj.uid }}</td>
+          <td>{{ packageObj.uid | truncate(25, "...") }}</td>
           <td>{{ packageObj.name }}</td>
+          <td>0</td>
           <td>{{ packageObj.total_service }}</td>
           <td>
             {{ packageObj.validity_json.amount }}
@@ -77,7 +79,7 @@
               ></router-link>
               <span> | </span>
               <a href=""
-                ><span class="text-danger"><i class="fas fa-trash"></i></span
+                ><span class="text-danger"><i class="fas fa-ban"></i></span
               ></a>
             </p>
           </td>
