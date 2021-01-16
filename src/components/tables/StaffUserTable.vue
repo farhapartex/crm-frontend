@@ -27,78 +27,35 @@
         </div>
       </div>
     </div>
-    <table class="table table-borderless">
+    <table class="table table-borderless" v-if="staffUserList.length > 0">
       <thead>
         <tr class="table-crm">
-          <th scope="col">User ID</th>
+          <th scope="col">UID</th>
           <th scope="col">Name</th>
+          <th scope="col">Email</th>
           <th scope="col">Mobile</th>
           <th scope="col">Role</th>
           <th scope="col">Join date</th>
-          <th scope="col">Last Login</th>
           <th scope="col">Status</th>
           <th scope="col">Action</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>as8das764a6s5das</td>
-          <td>Einer Haladin</td>
-          <td>01636990528</td>
-          <td>Admin</td>
-          <td>22nd Oct, 2020</td>
-          <td>30th Nov'20 02:10:23</td>
-          <td><span class="text-success">Active</span></td>
+        <tr v-for="(staffUser, index) in staffUserList" :key="index">
+          <td>{{ staffUser.uid | truncate(25, "...") }}</td>
+          <td>{{ staffUser.user.full_name }}</td>
+          <td>{{ staffUser.user.email }}</td>
+          <td>{{ staffUser.user.mobile }}</td>
+          <td>{{ staffUser.user.role_detail.name }}</td>
           <td>
-            <p>
-              <a href=""
-                ><span class="edit-icon"><i class="fas fa-edit"></i></span
-              ></a>
-              <span> | </span>
-              <a href=""
-                ><span class="text-secondary"><i class="fas fa-eye"></i></span
-              ></a>
-              <span> | </span>
-              <a href=""
-                ><span class="text-danger"><i class="fas fa-trash"></i></span
-              ></a>
-            </p>
+            {{ staffUser.user.date_joined | moment("DD-MM-YYYY") }}
           </td>
-        </tr>
-
-        <tr>
-          <td>as8das764a6s5das</td>
-          <td>Farzana Yesmin</td>
-          <td>01521321521</td>
-          <td>Admin</td>
-          <td>01st Jan, 2020</td>
-          <td>28th Nov'20 02:10:23</td>
-          <td><span class="text-success">Active</span></td>
           <td>
-            <p>
-              <a href=""
-                ><span class="edit-icon"><i class="fas fa-edit"></i></span
-              ></a>
-              <span> | </span>
-              <a href=""
-                ><span class="text-secondary"><i class="fas fa-eye"></i></span
-              ></a>
-              <span> | </span>
-              <a href=""
-                ><span class="text-danger"><i class="fas fa-trash"></i></span
-              ></a>
-            </p>
+            <span class="text-success" v-if="staffUser.user.is_active"
+              >Active</span
+            >
+            <span class="text-danger" v-else>InActive</span>
           </td>
-        </tr>
-
-        <tr>
-          <td>as8das764a6s5das</td>
-          <td>Mubasshir Ahmed</td>
-          <td>01842559820</td>
-          <td>Sales</td>
-          <td>01st Jan, 2020</td>
-          <td>28th Nov'20 02:10:23</td>
-          <td><span class="text-success">Active</span></td>
           <td>
             <p>
               <a href=""
@@ -117,11 +74,15 @@
         </tr>
       </tbody>
     </table>
+    <div class="alert alert-secondary text-center" v-else role="alert">
+      Staff user list is empty!
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 // @ is an alias to /src
+import { FETCH_STAFF_USER } from "@/store/actions.names";
 import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 import { Getter, Action } from "vuex-class";
 
@@ -131,11 +92,24 @@ import { Getter, Action } from "vuex-class";
 })
 export default class StaffUserTable extends Vue {
   @Prop({ type: String }) routeName!: string;
+  @Action(FETCH_STAFF_USER) fetchStaffUserList: any;
 
-  packageList: any = [];
-  customerList: any = [];
+  staffUserList: any = [];
 
-  mounted() {}
+  getStaffUserList(payload: any) {
+    this.fetchStaffUserList(payload)
+      .then((response: any) => {
+        this.staffUserList = response.results;
+        console.log(this.staffUserList);
+      })
+      .catch((e: any) => {
+        console.log(e);
+      });
+  }
+
+  mounted() {
+    this.getStaffUserList({});
+  }
 }
 </script>
 
