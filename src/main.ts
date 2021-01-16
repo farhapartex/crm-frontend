@@ -14,10 +14,20 @@ Vue.use(require('vue-moment'));
 
 //store.dispatch(RETRIEVE_AUTH_FROM_STORE).then(() => { });
 
-console.log("hasan ", localStorage.getItem("access_token"));
+//console.log("hasan ", localStorage.getItem("access_token"));
+
+var filter = function (text: any, length: any, clamp: any) {
+  clamp = clamp || ' ...';
+  var node = document.createElement('div');
+  node.innerHTML = text;
+  var content: any = node.textContent;
+  return content.length > length ? content.slice(0, length) + clamp : content;
+};
+
+Vue.filter('truncate', filter);
 
 router.beforeEach((to, from, next) => {
-  console.log("hasan ", localStorage.getItem("access_token"));
+  //console.log("hasan ", localStorage.getItem("access_token"));
 
   if (to.meta.authRequired) {
     if (localStorage.getItem("access_token") == null) {

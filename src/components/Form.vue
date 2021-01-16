@@ -4,7 +4,10 @@
       v-if="$route.name == 'serviceCreate' || $route.name == 'serviceUpdate'"
       :pageType="pageType"
     ></ServiceForm>
-    <PackageForm v-if="$route.name == 'packageCreate'"></PackageForm>
+    <PackageForm
+      v-if="$route.name == 'packageCreate' || $route.name == 'packageUpdate'"
+      :pageType="pageType"
+    ></PackageForm>
     <StaffUserForm v-if="$route.name == 'staffUserCreate'"></StaffUserForm>
     <UserPasswordResetForm
       v-if="$route.name == 'staffUserPasswordReset'"

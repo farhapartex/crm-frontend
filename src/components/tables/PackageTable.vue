@@ -38,11 +38,12 @@
         </div>
       </div>
     </div>
-    <table class="table table-borderless">
+    <table class="table table-borderless" v-if="packageList.length > 0">
       <thead>
         <tr class="table-crm">
           <th scope="col">UID</th>
           <th scope="col">Name</th>
+          <th scope="col">Used</th>
           <th scope="col">Service Count</th>
           <th scope="col">Validity</th>
           <th scope="col">Price</th>
@@ -53,8 +54,9 @@
       </thead>
       <tbody>
         <tr v-for="(packageObj, index) in packageList" :key="index">
-          <td>{{ packageObj.uid }}</td>
+          <td>{{ packageObj.uid | truncate(25, "...") }}</td>
           <td>{{ packageObj.name }}</td>
+          <td>0</td>
           <td>{{ packageObj.total_service }}</td>
           <td>
             {{ packageObj.validity_json.amount }}
@@ -71,24 +73,68 @@
           </td>
           <td>
             <p>
-              <a href=""
+              <router-link
+                :to="{ name: 'packageUpdate', params: { uid: packageObj.uid } }"
                 ><span class="edit-icon"><i class="fas fa-edit"></i></span
-              ></a>
+              ></router-link>
               <span> | </span>
-              <a href=""
-                ><span class="text-danger"><i class="fas fa-trash"></i></span
+              <a
+                href=""
+                data-toggle="modal"
+                data-target="#exampleModalCenter"
+                @click="singleObj = packageObj"
+                ><span class="text-danger"><i class="fas fa-ban"></i></span
               ></a>
             </p>
           </td>
         </tr>
       </tbody>
     </table>
+
+    <div class="alert alert-secondary text-center" v-else role="alert">
+      Package list is empty!
+    </div>
+
+    <div
+      class="modal fade"
+      id="exampleModalCenter"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalCenterTitle"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-body text-center">
+            <span class="text-danger"
+              >Are you sure want to change the status?</span
+            >
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-sm btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+            <button
+              type="button"
+              class="btn btn-sm btn-danger"
+              @click="statusChangeObject"
+            >
+              Change
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 // @ is an alias to /src
-import { FETCH_PACKAGE_LIST } from "@/store/actions.names";
+import { FETCH_PACKAGE_LIST, STATUS_CHANGE } from "@/store/actions.names";
 import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 import { Getter, Action } from "vuex-class";
 
@@ -99,12 +145,26 @@ import { Getter, Action } from "vuex-class";
 export default class PackageTable extends Vue {
   @Prop({ type: String }) routeName!: string;
   @Action(FETCH_PACKAGE_LIST) fetchPackageList: any;
+  @Action(STATUS_CHANGE) statusChange: any;
 
   packageList: any = [];
   searchObject: any = {
     generic_search: null,
     service_type_id: null,
   };
+
+  singleObj: any = null;
+
+  statusChangeObject() {
+    //console.log(this.singleObj);
+    this.statusChange({ uid: this.singleObj.uid, context: "package" })
+      .then((response: any) => {
+        this.$router.go(0);
+      })
+      .catch((e: any) => {
+        console.log(e);
+      });
+  }
 
   getPackageList(payload: any) {
     this.fetchPackageList(payload)

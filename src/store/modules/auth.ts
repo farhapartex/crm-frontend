@@ -5,10 +5,11 @@ import axios from "axios";
 import {
     ACCESS_TOKEN, ACCESS_LEVEL, PERMISSIONS, GROUPS, LOGGED_IN_USER_DATA,
 } from "../getters.names";
-import { LOGIN_ENDPOINT, TOKEN_VALIDATION_ENDPOINT, } from '../endpoints.names';
+import { LOGIN_ENDPOINT, STAFF_USER_ENDPOINT, TOKEN_VALIDATION_ENDPOINT, } from '../endpoints.names';
 import { SET_AUTH, SET_AUTH_ERROR, CLEAR_AUTH, GET_AUTH_FROM_STORE, GET_LOGGED_IN_USER_DATA, } from "@/store/mutations.names";
-import { CHECK_TOKEN_VALIDATION, LOGIN, LOGOUT, RETRIEVE_AUTH_FROM_STORE, RETRIEVE_LOGGED_IN_USER_DATA } from '../actions.names';
+import { CHECK_TOKEN_VALIDATION, FETCH_STAFF_USER, LOGIN, LOGOUT, RETRIEVE_AUTH_FROM_STORE, RETRIEVE_LOGGED_IN_USER_DATA } from '../actions.names';
 import { generateAuthHeader } from '@/utils/auth';
+import { buildQueryParams } from "@/utils/api";
 
 
 const DEFAULT_AUTH_STATE: AuthState = {
@@ -60,6 +61,17 @@ const actions: ActionTree<AuthState, RootState> = {
     async [CHECK_TOKEN_VALIDATION]({ rootState, commit }, payload: any): Promise<any> {
         return new Promise((resolve, reject) => {
             axios.post(TOKEN_VALIDATION_ENDPOINT, payload).then(({ data }) => {
+                resolve(data);
+            }).catch(e => {
+                reject(e);
+            });
+
+        });
+    },
+    async [FETCH_STAFF_USER]({ rootState, commit }, payload: any): Promise<any> {
+        return new Promise((resolve, reject) => {
+            const url = `${STAFF_USER_ENDPOINT}${buildQueryParams(payload)}`;
+            axios.get(url, generateAuthHeader(localStorage.getItem("access_token"))).then(({ data }) => {
                 resolve(data);
             }).catch(e => {
                 reject(e);
