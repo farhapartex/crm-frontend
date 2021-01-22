@@ -20,6 +20,17 @@ export const STAFF_USER_LIST: any = {
     }
 }
 
+export const STAFF_USER_DETAIL: any = {
+    path: "staff-user/detail/:uid",
+    name: "staffUserDetail",
+    component: () => import("../components/Page.vue"),
+    props: { "pageHeader": "Staff User Detail", "componentType": "form" },
+    meta: {
+        authRequired: true,
+        access_level: 0
+    }
+}
+
 export const STAFF_USER_FORM: any = {
     path: "staff-user/create",
     name: "staffUserCreate",

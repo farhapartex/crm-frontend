@@ -7,7 +7,7 @@ import {
 } from "../getters.names";
 import { LOGIN_ENDPOINT, STAFF_USER_ENDPOINT, TOKEN_VALIDATION_ENDPOINT, ROLE_ENDPOINT, } from '../endpoints.names';
 import { SET_AUTH, SET_AUTH_ERROR, CLEAR_AUTH, GET_AUTH_FROM_STORE, GET_LOGGED_IN_USER_DATA, } from "@/store/mutations.names";
-import { CHECK_TOKEN_VALIDATION, FETCH_STAFF_USER, LOGIN, LOGOUT, RETRIEVE_AUTH_FROM_STORE, RETRIEVE_LOGGED_IN_USER_DATA, FETCH_ROLE, } from '../actions.names';
+import { CHECK_TOKEN_VALIDATION, FETCH_STAFF_USER, LOGIN, LOGOUT, RETRIEVE_AUTH_FROM_STORE, RETRIEVE_LOGGED_IN_USER_DATA, FETCH_ROLE, CREATE_STAFF_USER, } from '../actions.names';
 import { generateAuthHeader } from '@/utils/auth';
 import { buildQueryParams } from "@/utils/api";
 
@@ -82,6 +82,16 @@ const actions: ActionTree<AuthState, RootState> = {
     async [FETCH_ROLE]({ rootState, commit }, payload: any): Promise<any> {
         return new Promise((resolve, reject) => {
             axios.get(ROLE_ENDPOINT, generateAuthHeader(localStorage.getItem("access_token"))).then(({ data }) => {
+                resolve(data);
+            }).catch(e => {
+                reject(e);
+            });
+
+        });
+    },
+    async [CREATE_STAFF_USER]({ rootState, commit }, payload: any): Promise<any> {
+        return new Promise((resolve, reject) => {
+            axios.post(STAFF_USER_ENDPOINT, payload, generateAuthHeader(localStorage.getItem("access_token"))).then(({ data }) => {
                 resolve(data);
             }).catch(e => {
                 reject(e);

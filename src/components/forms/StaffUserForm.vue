@@ -1,6 +1,9 @@
 <template>
   <div class="addRoom w-100">
     <div class="shadow p-3 mb-5 bg-white rounded">
+      <div class="alert alert-primary" role="alert" v-if="showSuccessMessage">
+        {{ successMessage }}
+      </div>
       <div class="container-fluid">
         <p class="mb-3"><b>Basic Information</b></p>
         <div class="row">
@@ -139,10 +142,12 @@
         <div class="row mt-4">
           <div class="col-md-12 col-lg-12 col-sm-12">
             <div class="form-group">
-              <button class="btn btn-sm crm-btn" @click="createStaffUser">
+              <button class="btn btn-sm crm-btn" @click="createNewStaffUser">
                 Save
               </button>
-              <button class="btn btn-sm btn-warning ml-3">Reset</button>
+              <button class="btn btn-sm btn-warning ml-3" @click="clearForm">
+                Reset
+              </button>
               <router-link
                 :to="{ name: 'staffUserList' }"
                 class="btn btn-sm btn-secondary ml-3"
@@ -158,7 +163,7 @@
 
 <script lang="ts">
 // @ is an alias to /src
-import { FETCH_ROLE } from "@/store/actions.names";
+import { CREATE_STAFF_USER, FETCH_ROLE } from "@/store/actions.names";
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { Getter, Action } from "vuex-class";
 
@@ -168,8 +173,11 @@ import { Getter, Action } from "vuex-class";
 })
 export default class StaffUserForm extends Vue {
   @Action(FETCH_ROLE) fetchRole: any;
+  @Action(CREATE_STAFF_USER) createStaffUser: any;
 
   roleList: any = [];
+  successMessage: string = "";
+  showSuccessMessage: boolean = false;
 
   staffUserModel: any = {
     first_name: null,
@@ -235,15 +243,52 @@ export default class StaffUserForm extends Vue {
       });
   }
 
-  createStaffUser() {
+  clearForm() {
+    this.staffUserModel = {
+      first_name: null,
+      last_name: null,
+      email: null,
+      mobile: null,
+      position: null,
+      gender: null,
+      role: null,
+    };
+  }
+
+  createNewStaffUser() {
     if (this.formValidation(this.staffUserModel)) {
-      console.log("Form valid");
+      //console.log("Form valid");
+      let staffUser = {
+        user: {
+          first_name: this.staffUserModel.first_name,
+          last_name: this.staffUserModel.last_name,
+          email: this.staffUserModel.email,
+          mobile: this.staffUserModel.mobile,
+          is_staff: true,
+          role: this.staffUserModel.role,
+          gender: this.staffUserModel.gender,
+        },
+        position: this.staffUserModel.position,
+      };
+
+      this.createStaffUser(staffUser)
+        .then((response: any) => {
+          this.showSuccessMessage = true;
+          this.successMessage = staffUser.user.email + " created successfully";
+          this.clearForm();
+        })
+        .catch((e: any) => {
+          console.log(e);
+        });
+
+      //console.log(staffUser);
     } else {
       console.log("Form invalid");
     }
   }
   mounted() {
     this.getRoleList();
+    this.showSuccessMessage = false;
   }
 }
 </script>
