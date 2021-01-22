@@ -5,23 +5,34 @@
     </div> -->
     <div class="w-100 search-box mb-4">
       <div class="container-fluid">
+        <div class="row mb-3">
+          <div class="col-2 offset-10">
+            <div class="">
+              <router-link
+                :to="{ name: 'staffUserCreate' }"
+                class="btn btn-sm crm-btn w-100"
+                ><span class="mr-2"><i class="fas fa-plus"></i></span
+                ><span>Create User</span></router-link
+              >
+            </div>
+          </div>
+        </div>
         <div class="row">
           <div class="col-3 offset-7">
             <div class="mr-3">
               <input
                 type="text"
                 class="form-control form-control-sm"
-                placeholder="Search.."
+                placeholder="Search by uid, name, email .."
+                @change="onChangeGenericSearchText($event)"
               />
             </div>
           </div>
           <div class="col-2">
             <div class="">
-              <router-link
-                :to="{ name: 'staffUserCreate' }"
-                class="btn btn-sm crm-btn w-100"
-                >Create User</router-link
-              >
+              <button class="btn btn-sm crm-btn w-100" @click="searchData">
+                Search
+              </button>
             </div>
           </div>
         </div>
@@ -96,6 +107,10 @@ export default class StaffUserTable extends Vue {
 
   staffUserList: any = [];
 
+  searchObject: any = {
+    generic_search: null,
+  };
+
   getStaffUserList(payload: any) {
     this.fetchStaffUserList(payload)
       .then((response: any) => {
@@ -105,6 +120,14 @@ export default class StaffUserTable extends Vue {
       .catch((e: any) => {
         console.log(e);
       });
+  }
+
+  onChangeGenericSearchText(event: any) {
+    this.searchObject.generic_search = event.target.value;
+  }
+
+  searchData() {
+    this.getStaffUserList(this.searchObject);
   }
 
   mounted() {
