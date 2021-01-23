@@ -137,15 +137,45 @@
               <div class="invalid-feedback">Please select user gender.</div>
             </div>
           </div>
+          <div class="col-md-3 col-lg-3 col-sm-12">
+            <div class="form-group">
+              <label for="user_role">User Status</label>
+              <select
+                class="custom-select custom-select-sm"
+                id="user_role"
+                v-model="staffUserModel.is_active"
+              >
+                <option selected>-- Select Status --</option>
+                <option value="true">Active</option>
+                <option value="false">Deactive</option>
+              </select>
+              <div class="invalid-feedback">Please select user gender.</div>
+            </div>
+          </div>
         </div>
 
         <div class="row mt-4">
           <div class="col-md-12 col-lg-12 col-sm-12">
             <div class="form-group">
-              <button class="btn btn-sm crm-btn" @click="createNewStaffUser">
+              <button
+                class="btn btn-sm crm-btn"
+                @click="createNewStaffUser"
+                v-if="pageType == 'new'"
+              >
                 Save
               </button>
-              <button class="btn btn-sm btn-warning ml-3" @click="clearForm">
+              <button
+                class="btn btn-sm crm-btn"
+                @click="updateStaffUser"
+                v-else-if="pageType === 'update'"
+              >
+                Update
+              </button>
+              <button
+                class="btn btn-sm btn-warning ml-3"
+                @click="clearForm"
+                v-if="pageType == 'new'"
+              >
                 Reset
               </button>
               <router-link
@@ -163,7 +193,12 @@
 
 <script lang="ts">
 // @ is an alias to /src
-import { CREATE_STAFF_USER, FETCH_ROLE } from "@/store/actions.names";
+import {
+  CREATE_STAFF_USER,
+  FETCH_ROLE,
+  FETCH_STAFF_USER_DETAIL,
+  UPDATE_STAFF_USER_DETAIL,
+} from "@/store/actions.names";
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { Getter, Action } from "vuex-class";
 
@@ -172,14 +207,18 @@ import { Getter, Action } from "vuex-class";
   components: {},
 })
 export default class StaffUserForm extends Vue {
+  @Prop({ type: String }) pageType!: string;
   @Action(FETCH_ROLE) fetchRole: any;
   @Action(CREATE_STAFF_USER) createStaffUser: any;
+  @Action(FETCH_STAFF_USER_DETAIL) fetchStaffUserDetail: any;
+  @Action(UPDATE_STAFF_USER_DETAIL) updateStaffUserDetail: any;
 
   roleList: any = [];
   successMessage: string = "";
   showSuccessMessage: boolean = false;
 
   staffUserModel: any = {
+    uid: null,
     first_name: null,
     last_name: null,
     email: null,
@@ -187,6 +226,7 @@ export default class StaffUserForm extends Vue {
     position: null,
     gender: null,
     role: null,
+    is_active: null,
   };
 
   staffUserValidationObj: any = {
@@ -197,6 +237,8 @@ export default class StaffUserForm extends Vue {
     position: false,
     gender: false,
     role: false,
+    uid: false,
+    is_active: false,
   };
 
   validateEmail(email: string) {
@@ -206,8 +248,10 @@ export default class StaffUserForm extends Vue {
 
   formValidation(obj: any) {
     let formValid = true;
+    //delete obj["uid"];
+    //delete obj["is_active"];
     Object.keys(obj).forEach((element: any) => {
-      if (element == "is_private") {
+      if (element == "uid" || element == "is_active") {
         this.staffUserValidationObj[element] = false;
       } else if (
         obj[element] == null ||
@@ -286,9 +330,66 @@ export default class StaffUserForm extends Vue {
       console.log("Form invalid");
     }
   }
+
+  updateStaffUser() {
+    if (this.formValidation(this.staffUserModel)) {
+      //console.log("Form valid");
+      let staffUser = {
+        user: {
+          first_name: this.staffUserModel.first_name,
+          last_name: this.staffUserModel.last_name,
+          email: this.staffUserModel.email,
+          mobile: this.staffUserModel.mobile,
+          is_staff: true,
+          role: this.staffUserModel.role,
+          gender: this.staffUserModel.gender,
+          is_active: this.staffUserModel.is_active,
+        },
+        position: this.staffUserModel.position,
+        uid: this.staffUserModel.uid,
+      };
+
+      this.updateStaffUserDetail(staffUser)
+        .then((response: any) => {
+          this.showSuccessMessage = true;
+          this.successMessage = staffUser.user.email + " update successfully";
+          //this.clearForm();
+        })
+        .catch((e: any) => {
+          console.log(e);
+        });
+
+      console.log(staffUser);
+    } else {
+      console.log("Form invalid");
+    }
+  }
+
+  getStaffUserDetail(uid: any) {
+    this.fetchStaffUserDetail(uid)
+      .then((response: any) => {
+        let data = response.data;
+        this.staffUserModel.uid = data.uid;
+        this.staffUserModel.first_name = data.user.first_name;
+        this.staffUserModel.last_name = data.user.last_name;
+        this.staffUserModel.email = data.user.email;
+        this.staffUserModel.gender = data.user.gender;
+        this.staffUserModel.mobile = data.user.mobile;
+        this.staffUserModel.role = data.user.role;
+        this.staffUserModel.position = data.position;
+        this.staffUserModel.is_active = data.user.is_active;
+      })
+      .catch((e: any) => {
+        console.log(e);
+      });
+  }
+
   mounted() {
     this.getRoleList();
     this.showSuccessMessage = false;
+    if (this.$route.name == "staffUserDetail") {
+      this.getStaffUserDetail(this.$route.params.uid);
+    }
   }
 }
 </script>

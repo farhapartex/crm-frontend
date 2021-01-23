@@ -24,7 +24,7 @@ export const STAFF_USER_DETAIL: any = {
     path: "staff-user/detail/:uid",
     name: "staffUserDetail",
     component: () => import("../components/Page.vue"),
-    props: { "pageHeader": "Staff User Detail", "componentType": "form" },
+    props: { "pageHeader": "Staff User Detail", "pageType": "update", "componentType": "form" },
     meta: {
         authRequired: true,
         access_level: 0
@@ -35,7 +35,7 @@ export const STAFF_USER_FORM: any = {
     path: "staff-user/create",
     name: "staffUserCreate",
     component: () => import("../components/Page.vue"),
-    props: { "pageHeader": "New Staff User", "componentType": "form" },
+    props: { "pageHeader": "New Staff User", "pageType": "new", "componentType": "form" },
     meta: {
         authRequired: true,
         access_level: 0

@@ -7,7 +7,7 @@ import {
 } from "../getters.names";
 import { LOGIN_ENDPOINT, STAFF_USER_ENDPOINT, TOKEN_VALIDATION_ENDPOINT, ROLE_ENDPOINT, } from '../endpoints.names';
 import { SET_AUTH, SET_AUTH_ERROR, CLEAR_AUTH, GET_AUTH_FROM_STORE, GET_LOGGED_IN_USER_DATA, } from "@/store/mutations.names";
-import { CHECK_TOKEN_VALIDATION, FETCH_STAFF_USER, LOGIN, LOGOUT, RETRIEVE_AUTH_FROM_STORE, RETRIEVE_LOGGED_IN_USER_DATA, FETCH_ROLE, CREATE_STAFF_USER, } from '../actions.names';
+import { CHECK_TOKEN_VALIDATION, FETCH_STAFF_USER, LOGIN, LOGOUT, RETRIEVE_AUTH_FROM_STORE, RETRIEVE_LOGGED_IN_USER_DATA, FETCH_ROLE, CREATE_STAFF_USER, FETCH_STAFF_USER_DETAIL, UPDATE_STAFF_USER_DETAIL, } from '../actions.names';
 import { generateAuthHeader } from '@/utils/auth';
 import { buildQueryParams } from "@/utils/api";
 
@@ -92,6 +92,28 @@ const actions: ActionTree<AuthState, RootState> = {
     async [CREATE_STAFF_USER]({ rootState, commit }, payload: any): Promise<any> {
         return new Promise((resolve, reject) => {
             axios.post(STAFF_USER_ENDPOINT, payload, generateAuthHeader(localStorage.getItem("access_token"))).then(({ data }) => {
+                resolve(data);
+            }).catch(e => {
+                reject(e);
+            });
+
+        });
+    },
+    async [FETCH_STAFF_USER_DETAIL]({ rootState, commit }, uid: string): Promise<any> {
+        return new Promise((resolve, reject) => {
+            let url = `${STAFF_USER_ENDPOINT}${uid}/`;
+            axios.get(url, generateAuthHeader(localStorage.getItem("access_token"))).then(({ data }) => {
+                resolve(data);
+            }).catch(e => {
+                reject(e);
+            });
+
+        });
+    },
+    async [UPDATE_STAFF_USER_DETAIL]({ rootState, commit }, payload: any): Promise<any> {
+        return new Promise((resolve, reject) => {
+            const url = `${STAFF_USER_ENDPOINT}${payload['uid']}/`;
+            axios.put(url, payload, generateAuthHeader(localStorage.getItem("access_token"))).then(({ data }) => {
                 resolve(data);
             }).catch(e => {
                 reject(e);

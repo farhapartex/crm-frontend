@@ -263,7 +263,7 @@ export default class ServiceForm extends Vue {
       this.getServiceDetail(this.$route.params.uid);
     }
 
-    console.log(this.$route.name);
+    //console.log(this.$route.name);
 
     //this.formValidation(this.service);
   }

@@ -16,4 +16,6 @@ export const UPDATE_PACKAGE: string = "updatePackage";
 export const STATUS_CHANGE: string = "statusChange";
 export const CREATE_STAFF_USER: string = "createStaffUser";
 export const FETCH_STAFF_USER: string = "fetchStaffUser";
+export const FETCH_STAFF_USER_DETAIL: string = "fetchStaffUserDetail";
+export const UPDATE_STAFF_USER_DETAIL: string = "updateStaffUserDetail";
 export const FETCH_ROLE: string = "fetchRole";

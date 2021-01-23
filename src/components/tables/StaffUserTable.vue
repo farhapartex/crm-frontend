@@ -69,9 +69,13 @@
           </td>
           <td>
             <p>
-              <a href=""
+              <router-link
+                :to="{
+                  name: 'staffUserDetail',
+                  params: { uid: staffUser.uid },
+                }"
                 ><span class="edit-icon"><i class="fas fa-edit"></i></span
-              ></a>
+              ></router-link>
               <span> | </span>
               <a href=""
                 ><span class="text-secondary"><i class="fas fa-eye"></i></span
