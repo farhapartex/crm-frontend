@@ -6,23 +6,34 @@
 
     <div class="w-100 search-box mb-4">
       <div class="container-fluid">
+        <div class="row mb-3">
+          <div class="col-2 offset-10">
+            <div class="">
+              <router-link
+                :to="{ name: 'serviceCreate' }"
+                class="btn btn-sm crm-btn w-100"
+                ><span class="mr-2"><i class="fas fa-plus"></i></span>
+                <span>Create Country</span></router-link
+              >
+            </div>
+          </div>
+        </div>
         <div class="row">
           <div class="col-3 offset-7">
             <div class="mr-3">
               <input
                 type="text"
                 class="form-control form-control-sm"
-                placeholder="Search.."
+                placeholder="Search by uid, name .."
+                @change="onChangeSearchValue($event)"
               />
             </div>
           </div>
           <div class="col-2">
             <div class="">
-              <router-link
-                :to="{ name: 'contactCreate' }"
-                class="btn btn-sm crm-btn w-100"
-                >Create Contact</router-link
-              >
+              <button class="btn btn-sm crm-btn w-100" @click="searchData">
+                Search
+              </button>
             </div>
           </div>
         </div>
@@ -41,7 +52,10 @@
         <tr v-for="(country, index) in countryList" :key="index">
           <td>{{ country.uid }}</td>
           <td>{{ country.name }}</td>
-          <td><span class="text-success">Active</span></td>
+          <td>
+            <span class="text-success" v-if="country.is_active">Active</span>
+            <span class="text-danger" v-else>Deactive</span>
+          </td>
           <td>
             <p>
               <a href=""
@@ -79,6 +93,10 @@ export default class CountryTable extends Vue {
 
   countryList: any = [];
 
+  searchObject: any = {
+    generic_search: null,
+  };
+
   getCountryList(payload: any) {
     this.fetchCountries(payload)
       .then((response: any) => {
@@ -87,6 +105,15 @@ export default class CountryTable extends Vue {
       .catch((e: any) => {
         console.log(e);
       });
+  }
+
+  onChangeSearchValue(event: any) {
+    this.searchObject.generic_search = event.target.value;
+    this.getCountryList(this.searchObject);
+  }
+
+  searchData() {
+    this.getCountryList(this.searchObject);
   }
 
   mounted() {
