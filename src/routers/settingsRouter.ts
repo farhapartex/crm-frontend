@@ -83,7 +83,18 @@ export const COUNTRY_FORM: any = {
     path: "country/new",
     name: "newCountry",
     component: () => import("../components/Page.vue"),
-    props: { "pageHeader": "New Country", "componentType": "form" },
+    props: { "pageHeader": "New Country", "pageType": "new", "componentType": "form" },
+    meta: {
+        authRequired: true,
+        access_level: 0
+    }
+}
+
+export const COUNTRY_FORM_DETAILS: any = {
+    path: "country/details/:uid",
+    name: "countryDetails",
+    component: () => import("../components/Page.vue"),
+    props: { "pageHeader": "Country Details", "pageType": "update", "componentType": "form" },
     meta: {
         authRequired: true,
         access_level: 0

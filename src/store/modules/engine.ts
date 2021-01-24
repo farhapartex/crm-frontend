@@ -4,7 +4,7 @@ import vue from "vue";
 import axios from "axios";
 import { generateAuthHeader } from '@/utils/auth';
 import { buildQueryParams } from '@/utils/api';
-import { CREATE_COUNTRY, FETCH_COUNTRIES } from "../actions.names";
+import { CREATE_COUNTRY, FETCH_COUNTRIES, FETCH_COUNTRY_DETAILS } from "../actions.names";
 import { COUNTRY_ENDPOINT } from "../endpoints.names";
 
 const DEFAULT_CORE_STATE: EngineState = {
@@ -32,6 +32,17 @@ const actions: ActionTree<EngineState, RootState> = {
     async [CREATE_COUNTRY]({ rootState, commit }, payload: any): Promise<any> {
         return new Promise((resolve, reject) => {
             axios.post(COUNTRY_ENDPOINT, payload, generateAuthHeader(localStorage.getItem("access_token"))).then(({ data }) => {
+                resolve(data);
+            }).catch(e => {
+                reject(e);
+            });
+
+        });
+    },
+    async [FETCH_COUNTRY_DETAILS]({ rootState, commit }, uid: any): Promise<any> {
+        return new Promise((resolve, reject) => {
+            let url = `${COUNTRY_ENDPOINT}${uid}/`;
+            axios.get(url, generateAuthHeader(localStorage.getItem("access_token"))).then(({ data }) => {
                 resolve(data);
             }).catch(e => {
                 reject(e);

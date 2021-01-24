@@ -23,7 +23,10 @@
     <ProductForm v-if="$route.name == 'productCreate'"></ProductForm>
     <InvoiceForm v-if="$route.name == 'invoiceCreate'"></InvoiceForm>
     <CouponForm v-if="$route.name == 'couponCreate'"></CouponForm>
-    <CountryForm v-if="$route.name == 'newCountry'"></CountryForm>
+    <CountryForm
+      :pageType="pageType"
+      v-if="$route.name == 'newCountry' || $route.name == 'countryDetails'"
+    ></CountryForm>
   </div>
 </template>
 

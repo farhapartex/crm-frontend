@@ -58,9 +58,10 @@
           </td>
           <td>
             <p>
-              <a href=""
+              <router-link
+                :to="{ name: 'countryDetails', params: { uid: country.uid } }"
                 ><span class="edit-icon"><i class="fas fa-edit"></i></span
-              ></a>
+              ></router-link>
               <span> | </span>
               <a href=""
                 ><span class="text-danger"><i class="fas fa-trash"></i></span

@@ -25,10 +25,25 @@
         <div class="row mt-4">
           <div class="col-md-12 col-lg-12 col-sm-12">
             <div class="form-group">
-              <button class="btn btn-sm crm-btn" @click="createNewCountry">
+              <button
+                class="btn btn-sm crm-btn"
+                @click="createNewCountry"
+                v-if="pageType == 'new'"
+              >
                 Save
               </button>
-              <button class="btn btn-sm btn-warning ml-3" @click="clearForm">
+              <button
+                class="btn btn-sm crm-btn"
+                @click="createNewCountry"
+                v-else-if="pageType == 'update'"
+              >
+                Update
+              </button>
+              <button
+                class="btn btn-sm btn-warning ml-3"
+                @click="clearForm"
+                v-if="pageType == 'new'"
+              >
                 Reset
               </button>
               <router-link
@@ -46,7 +61,7 @@
 
 <script lang="ts">
 // @ is an alias to /src
-import { CREATE_COUNTRY } from "@/store/actions.names";
+import { CREATE_COUNTRY, FETCH_COUNTRY_DETAILS } from "@/store/actions.names";
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { Getter, Action } from "vuex-class";
 
@@ -55,7 +70,9 @@ import { Getter, Action } from "vuex-class";
   components: {},
 })
 export default class CountryForm extends Vue {
+  @Prop({ type: String }) pageType!: string;
   @Action(CREATE_COUNTRY) createCountry: any;
+  @Action(FETCH_COUNTRY_DETAILS) fetchCountryDetails: any;
 
   countryModel: any = {
     uid: null,
@@ -99,6 +116,16 @@ export default class CountryForm extends Vue {
     };
   }
 
+  getCountryDetails(uid: any) {
+    this.fetchCountryDetails(uid)
+      .then((response: any) => {
+        this.countryModel = response.data;
+      })
+      .catch((e: any) => {
+        console.log(e);
+      });
+  }
+
   createNewCountry() {
     delete this.countryModel.uid;
     delete this.countryModel.is_active;
@@ -115,7 +142,11 @@ export default class CountryForm extends Vue {
       });
   }
 
-  mounted() {}
+  mounted() {
+    if (this.$route.name == "countryDetails") {
+      this.getCountryDetails(this.$route.params.uid);
+    }
+  }
 }
 </script>
 
