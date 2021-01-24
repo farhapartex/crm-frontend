@@ -39,6 +39,24 @@
 
       <div class="col-4 settings-block">
         <div class="single-setting">
+          <router-link :to="{ name: 'countryList' }" class="d-block">
+            <div class="setting-icon float-left">
+              <span>
+                <i class="fas fa-globe-asia"></i>
+              </span>
+            </div>
+            <div class="setting-content float-right">
+              <h6>
+                <b>Country</b>
+              </h6>
+              <p>Add/Update country</p>
+            </div>
+          </router-link>
+        </div>
+      </div>
+
+      <div class="col-4 settings-block">
+        <div class="single-setting">
           <router-link :to="{ name: 'accountSecurity' }" class="d-block">
             <div class="setting-icon float-left">
               <span>

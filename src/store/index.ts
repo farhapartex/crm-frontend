@@ -3,6 +3,7 @@ import Vuex, { StoreOptions } from 'vuex'
 import { RootState } from "./store.types";
 import AuthModule from "./modules/auth";
 import CoreModule from "./modules/core";
+import EngineModule from "./modules/engine";
 
 Vue.use(Vuex);
 
@@ -12,7 +13,8 @@ const store: StoreOptions<RootState> = {
   },
   modules: {
     AuthModule,
-    CoreModule
+    CoreModule,
+    EngineModule
   }
 };
 

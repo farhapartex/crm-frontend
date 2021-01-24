@@ -10,3 +10,4 @@ export const PACKAGE_ENDPOINT: string = `${API_URL}/core/packages/`;
 export const STATUS_CHANGE_ENDPOINT: string = `${API_URL}/core/generic-status-change/`;
 export const STAFF_USER_ENDPOINT: string = `${API_URL}/core/staff-users/`;
 export const ROLE_ENDPOINT: string = `${API_URL}/core/roles/`;
+export const COUNTRY_ENDPOINT: string = `${API_URL}/engine/countries/`;

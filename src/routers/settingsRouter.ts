@@ -65,3 +65,15 @@ export const PASSWORD_RESET_FORM: any = {
         access_level: 0
     }
 }
+
+
+export const COUNTRY_LIST: any = {
+    path: "country/list",
+    name: "countryList",
+    component: () => import("../components/Page.vue"),
+    props: { "pageHeader": "Country List", "componentType": "table" },
+    meta: {
+        authRequired: true,
+        access_level: 0
+    }
+}

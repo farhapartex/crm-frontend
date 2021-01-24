@@ -36,6 +36,10 @@
       :routeName="$route.name"
       v-if="$route.name == 'couponList'"
     ></CouponTable>
+    <CountryTable
+      :routeName="$route.name"
+      v-if="$route.name == 'countryList'"
+    ></CountryTable>
   </div>
 </template>
 
@@ -52,6 +56,7 @@ import ContactTable from "./tables/ContactTable.vue";
 import ProductTable from "./tables/ProductTable.vue";
 import InvoiceTable from "./tables/InvoiceTable.vue";
 import CouponTable from "./tables/CouponTable.vue";
+import CountryTable from "./tables/CountryTable.vue";
 
 @Component({
   name: "Table",
@@ -65,6 +70,7 @@ import CouponTable from "./tables/CouponTable.vue";
     ProductTable,
     InvoiceTable,
     CouponTable,
+    CountryTable,
   },
 })
 export default class Table extends Vue {

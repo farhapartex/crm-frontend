@@ -39,3 +39,7 @@ export interface AuthCredential {
 export interface CoreState {
     error: boolean;
 }
+
+export interface EngineState {
+    error: boolean;
+}
