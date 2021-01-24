@@ -20,6 +20,21 @@
               />
             </div>
           </div>
+          <div class="col-md-3 col-lg-3 col-sm-12" v-if="pageType == 'update'">
+            <div class="form-group">
+              <label for="user_role">Status</label>
+              <select
+                class="custom-select custom-select-sm"
+                id="user_role"
+                v-model="countryModel.is_active"
+              >
+                <option selected>-- Select Status --</option>
+                <option value="true">Active</option>
+                <option value="false">Deactive</option>
+              </select>
+              <div class="invalid-feedback">Please select user gender.</div>
+            </div>
+          </div>
         </div>
 
         <div class="row mt-4">
@@ -34,7 +49,7 @@
               </button>
               <button
                 class="btn btn-sm crm-btn"
-                @click="createNewCountry"
+                @click="updateForm"
                 v-else-if="pageType == 'update'"
               >
                 Update
@@ -61,7 +76,11 @@
 
 <script lang="ts">
 // @ is an alias to /src
-import { CREATE_COUNTRY, FETCH_COUNTRY_DETAILS } from "@/store/actions.names";
+import {
+  CREATE_COUNTRY,
+  FETCH_COUNTRY_DETAILS,
+  UPDATE_COUNTRY_DETAILS,
+} from "@/store/actions.names";
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { Getter, Action } from "vuex-class";
 
@@ -73,6 +92,7 @@ export default class CountryForm extends Vue {
   @Prop({ type: String }) pageType!: string;
   @Action(CREATE_COUNTRY) createCountry: any;
   @Action(FETCH_COUNTRY_DETAILS) fetchCountryDetails: any;
+  @Action(UPDATE_COUNTRY_DETAILS) updateCountryDetails: any;
 
   countryModel: any = {
     uid: null,
@@ -135,6 +155,17 @@ export default class CountryForm extends Vue {
     this.createCountry(this.countryModel)
       .then((response: any) => {
         this.successMessage = this.countryModel.name + " created successfully";
+        this.showSuccessMessage = true;
+      })
+      .catch((e: any) => {
+        console.log(e);
+      });
+  }
+
+  updateForm(payload: any) {
+    this.updateCountryDetails(this.countryModel)
+      .then((response: any) => {
+        this.successMessage = this.countryModel.name + " updated successfully";
         this.showSuccessMessage = true;
       })
       .catch((e: any) => {

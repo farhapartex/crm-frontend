@@ -22,3 +22,4 @@ export const FETCH_ROLE: string = "fetchRole";
 export const FETCH_COUNTRIES: string = "fetchCountries";
 export const CREATE_COUNTRY: string = "createCountry";
 export const FETCH_COUNTRY_DETAILS: string = "fetchCountryDetail";
+export const UPDATE_COUNTRY_DETAILS: string = "updateCountryDetails";
