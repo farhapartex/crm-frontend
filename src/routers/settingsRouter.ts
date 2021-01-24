@@ -77,3 +77,15 @@ export const COUNTRY_LIST: any = {
         access_level: 0
     }
 }
+
+
+export const COUNTRY_FORM: any = {
+    path: "country/new",
+    name: "newCountry",
+    component: () => import("../components/Page.vue"),
+    props: { "pageHeader": "New Country", "componentType": "form" },
+    meta: {
+        authRequired: true,
+        access_level: 0
+    }
+}

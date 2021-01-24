@@ -10,7 +10,7 @@
           <div class="col-2 offset-10">
             <div class="">
               <router-link
-                :to="{ name: 'serviceCreate' }"
+                :to="{ name: 'newCountry' }"
                 class="btn btn-sm crm-btn w-100"
                 ><span class="mr-2"><i class="fas fa-plus"></i></span>
                 <span>Create Country</span></router-link

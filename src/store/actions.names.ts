@@ -20,3 +20,4 @@ export const FETCH_STAFF_USER_DETAIL: string = "fetchStaffUserDetail";
 export const UPDATE_STAFF_USER_DETAIL: string = "updateStaffUserDetail";
 export const FETCH_ROLE: string = "fetchRole";
 export const FETCH_COUNTRIES: string = "fetchCountries";
+export const CREATE_COUNTRY: string = "createCountry";

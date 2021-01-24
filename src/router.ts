@@ -3,7 +3,7 @@ import VueRouter, { RouteConfig } from 'vue-router';
 import Home from './views/Home.vue';
 import AuthView from "./views/AuthView.vue";
 import Base from "./views/Base.vue";
-import { SETTINGS_VIEW, STAFF_USER_LIST, STAFF_USER_FORM, PASSWORD_RESET_FORM, ACCOUNT_SECURITY, STAFF_USER_DETAIL, COUNTRY_LIST } from './routers/settingsRouter';
+import { SETTINGS_VIEW, STAFF_USER_LIST, STAFF_USER_FORM, PASSWORD_RESET_FORM, ACCOUNT_SECURITY, STAFF_USER_DETAIL, COUNTRY_LIST, COUNTRY_FORM } from './routers/settingsRouter';
 import { CUSTOMER_LIST, CUSTOMER_FORM } from './routers/customerRoute';
 import { SERVICE_CREATE, SERVICE_LIST, PACKAGE_LIST, PACKAGE_CREATE, SERVICE_UPDATE, PACKAGE_UPDATE } from './routers/packageRoute';
 import { PAYMENT_CREATE, TRANSACTION_LIST } from './routers/transactionRoute';
@@ -98,7 +98,8 @@ const routes = [
             PASSWORD_RESET_FORM,
             TRANSACTION_LIST,
             PAYMENT_CREATE,
-            COUNTRY_LIST
+            COUNTRY_LIST,
+            COUNTRY_FORM
         ]
     },
     {
